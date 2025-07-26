@@ -9,7 +9,7 @@
         background-color: rgb(29, 29, 29);
         color: white;
         font-family: Archivo;
-
+        user-select: none;
     }
     button {
         background-color: rgb(255, 110, 110);
@@ -120,12 +120,12 @@
     <script>
 
         function viewExtension(url) {
-            window.open("https://studio.cattiesworld.nl/editor.html?extension=" + window.location.href + "/extensions/resources/extensions/" + url)
+            window.open("https://studio.cattiesworld.nl/editor.html?extension=" + window.location.href + "/resources/extensions/" + url)
         }
 
         function copyExtension(url) {
             const link = window.location.href
-            navigator.clipboard.writeText(window.location.href + "/extensions/resources/extensions/" + url)
+            navigator.clipboard.writeText(window.location.href + "resources/extensions/" + url)
         }
 
 
