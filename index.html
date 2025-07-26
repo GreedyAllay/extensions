@@ -34,6 +34,16 @@
     img {
         border-radius: 5px;
     }
+    .clickable {
+        transition: transform, 0.1s;
+    }
+    .clickable:hover {
+        cursor: pointer;
+    }
+    .clickable:active {
+        transition: transform, 0.1s;
+        transform: scale(0.95);
+    }
     .extension {
         background-color: rgb(58, 58, 58);
         padding: 20px;
@@ -87,7 +97,7 @@
 </style>
 <body>
     <div id="notiwrapper">
-        <div id="notification">Copied</div>
+        <div id="notification" class="clickable" onclick="notification.hidden = true" hidden>Copied</div>
     </div>
     <div id="title-wrapper">
         <p id="title">Extensions</p>
@@ -102,37 +112,10 @@
             <button onclick="viewExtension('ollama.js')">View</button>
         </div>
     </div>
-    <div class="extension">
-        <img src="resources/default.png" alt="" width="100%">
-        <p class="name">Title</p>
-        <p class="description">Description</p>
-        <div class="buttons">
-            <button>Copy</button>
-            <button>View</button>
-        </div>
-    </div>
-    <div class="extension">
-        <img src="resources/default.png" alt="" width="100%">
-        <p class="name">Title</p>
-        <p class="description">Description</p>
-        <div class="buttons">
-            <button>Copy</button>
-            <button>View</button>
-        </div>
-    </div>
-    <div class="extension">
-        <img src="resources/default.png" alt="" width="100%">
-        <p class="name">Title</p>
-        <p class="description">Description</p>
-        <div class="buttons">
-            <button>Copy</button>
-            <button>View</button>
-        </div>
-    </div>
-
     </div>
 
     <script>
+        const notification = document.getElementById('notification')
 
         function viewExtension(url) {
             window.open("https://studio.penguinmod.com/editor.html?extension=" + window.location.href + "resources/extensions/" + url)
@@ -141,8 +124,15 @@
         function copyExtension(url) {
             const link = window.location.href
             navigator.clipboard.writeText(window.location.href + "resources/extensions/" + url)
+            notification.hidden = false
+            decayNotification()
         }
 
+        function decayNotification() {
+            setTimeout(() => {
+                notification.hidden = true;
+            }, 1000)
+        }
 
 
 

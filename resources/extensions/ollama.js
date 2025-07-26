@@ -211,7 +211,7 @@
     return responsejson.response; // <-- return the actual text you want
   } catch (error) {
     console.error(error);
-    return `Error ${error.message}, This is most likely caused by you changing the ollama ip or you haven't set it up properly yet.`;
+    return `(Error ${error.message}) - This is most likely caused by you changing the Ollama ip or Ollama isn't running yet. You might also still need to download the model!`;
   }
 }
 
