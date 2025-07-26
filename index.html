@@ -135,12 +135,12 @@
     <script>
 
         function viewExtension(url) {
-            window.open("https://studio.penguinmod.com/editor.html?extension=" + window.location.href + "extensions/" + url)
+            window.open("https://studio.penguinmod.com/editor.html?extension=" + window.location.href + "../extensions/" + url)
         }
 
         function copyExtension(url) {
             const link = window.location.href
-            navigator.clipboard.writeText(window.location.href + "extensions/" + url)
+            navigator.clipboard.writeText(window.location.href + "../extensions/" + url)
         }
 
 
