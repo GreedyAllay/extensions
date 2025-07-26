@@ -1,0 +1,133 @@
+<head>
+<title>Greedy Allay Extension Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        background-color: rgb(29, 29, 29);
+        color: white;
+        font-family: Archivo;
+
+    }
+    button {
+        background-color: rgb(255, 110, 110);
+        border-style: none;
+        border-radius: 5px;
+        padding: 10px;
+        color: white;
+        padding-left: 20px;
+        padding-right: 20px;
+        transition: transform, .1s;
+
+    }
+    button:active {
+        transform: scale(0.95);
+        transition: transform, .05s, background-color, .1s;
+        background-color: rgb(223, 87, 87);
+    }
+    button:hover {
+        cursor: pointer;
+    }
+    .extension {
+        background-color: rgb(58, 58, 58);
+        padding: 20px;
+        width: 300px;
+        height: 300px;
+        border-color: rgb(54, 54, 54);
+        border-style: solid;
+        border-width: 1px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    #wrapper {
+        width: 80%;
+        display: flex;
+        margin: auto;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    #title {
+        font-family: Archivo Black;
+        font-size: 40px;
+
+    }
+    #title-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+    .name {
+        font-family: Archivo Black;
+        font-size: 20px;
+    }
+    .description {
+        color: rgb(207, 207, 207);
+    }
+
+
+</style>
+<body>
+    <div id="title-wrapper">
+        <p id="title">Extensions</p>
+    </div>
+    <div id="wrapper">
+    <div class="extension">
+        <img src="resources/default.png" alt="" width="100%">
+        <p class="name">Title</p>
+        <p class="description">Description</p>
+        <div class="buttons">
+            <button>Copy</button>
+            <button>View</button>
+        </div>
+    </div>
+    <div class="extension">
+        <img src="resources/default.png" alt="" width="100%">
+        <p class="name">Title</p>
+        <p class="description">Description</p>
+        <div class="buttons">
+            <button>Copy</button>
+            <button>View</button>
+        </div>
+    </div>
+    <div class="extension">
+        <img src="resources/default.png" alt="" width="100%">
+        <p class="name">Title</p>
+        <p class="description">Description</p>
+        <div class="buttons">
+            <button>Copy</button>
+            <button>View</button>
+        </div>
+    </div>
+    <div class="extension">
+        <img src="resources/default.png" alt="" width="100%">
+        <p class="name">Title</p>
+        <p class="description">Description</p>
+        <div class="buttons">
+            <button>Copy</button>
+            <button>View</button>
+        </div>
+    </div>
+
+    </div>
+
+    <script>
+        // document.body.onload = loadExtensions();
+    
+        // function loadExtensions() {
+        //     // create a new div element
+        //     const extCard = document.createElement("div");
+
+        //     // and give it some content
+        //     extCard.appendChild(document.createElement("div"), { className: 'foo' })
+
+        //     // add the newly created element and its content into the DOM
+        //     const parent = document.getElementById("wrapper");
+        //     document.body.insertBefore(extCard, parent);
+        // }
+
+    </script>
+</body>
