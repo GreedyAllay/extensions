@@ -10,6 +10,7 @@
         color: white;
         font-family: Archivo;
         user-select: none;
+        -webkit-user-drag: none;
     }
     button {
         background-color: rgb(255, 110, 110);
@@ -70,10 +71,24 @@
     .description {
         color: rgb(207, 207, 207);
     }
-
+    #notification {
+        background-color: green;
+        position: fixed;
+        padding: 20px;
+        border-radius: 5px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    #notiwrapper {
+        width: 100%;
+        display: flex;
+    }
 
 </style>
 <body>
+    <div id="notiwrapper">
+        <div id="notification">Copied</div>
+    </div>
     <div id="title-wrapper">
         <p id="title">Extensions</p>
     </div>
@@ -83,7 +98,7 @@
         <p class="name">Ollama</p>
         <p class="description">Connect to your local Ollama server or an API through Scratch!</p>
         <div class="buttons">
-            <button onclick="copyExtension('ollama.js')">Copy</button>
+            <button onclick="copyExtension('ollama.js'); ">Copy</button>
             <button onclick="viewExtension('ollama.js')">View</button>
         </div>
     </div>
@@ -147,6 +162,34 @@
         //     const parent = document.getElementById("wrapper");
         //     document.body.insertBefore(extCard, parent);
         // }
+
+
+        (function() {
+            document.onmousemove = handleMouseMove;
+            function handleMouseMove(event) {
+                var eventDoc, doc, body;
+
+                event = event || window.event; // IE-ism
+
+                // If pageX/Y aren't available and clientX/Y are,
+                // calculate pageX/Y - logic taken from jQuery.
+                // (This is to support old IE)
+                if (event.pageX == null && event.clientX != null) {
+                    eventDoc = (event.target && event.target.ownerDocument) || document;
+                    doc = eventDoc.documentElement;
+                    body = eventDoc.body;
+
+                    event.pageX = event.clientX +
+                    (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+                    (doc && doc.clientLeft || body && body.clientLeft || 0);
+                    event.pageY = event.clientY +
+                    (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
+                    (doc && doc.clientTop  || body && body.clientTop  || 0 );
+                }
+
+                // Use event.pageX / event.pageY here
+            }
+        })();
 
     </script>
 </body>
