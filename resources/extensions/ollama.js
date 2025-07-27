@@ -215,7 +215,7 @@
   }
 }
 
-  const style = document.createElement('style');
+const style = document.createElement('style');
 style.textContent = `
 g[data-category="Ollama AI"] text[class="blocklyText"] {
     stroke: ;
