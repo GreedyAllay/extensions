@@ -220,9 +220,15 @@ style.textContent = `
 g[data-category="Ollama AI"] text[class="blocklyText"] {
     stroke: ;
     fill: #1c1c1c !important;
+
+}
+g[data-category="Ollama AI"] {
+background-color: green;
+    border-radius: 20px !important;
 }
 `;
 document.head.appendChild(style);
 
   Scratch.extensions.register(new MyExtension());
 })(Scratch);
+

@@ -1,0 +1,7 @@
+const style = document.createElement("style")
+style.textContent = `
+* {
+background-color: green !important;
+}
+`
+document.head.appendChild(style)

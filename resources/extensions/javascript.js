@@ -91,6 +91,39 @@
                 defaultValue: "pink cats"
               }
             }
+          },
+          {
+            opcode: 'function',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'function [NAME]([ARGS]) {',
+            arguments: {
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: "myFunction"
+              },
+              ARGS: {
+                type:Scratch.ArgumentType.STRING,
+                defaultValue: "arg1, arg2"
+              },
+              SUBSTACK: {
+              type: Scratch.ArgumentType.SUBSTACK
+            }
+            },
+          },
+          {
+            opcode: 'functionStart',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'run [NAME]([ARGS]) {',
+            arguments: {
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: "myFunction"
+              },
+              ARGS: {
+                type:Scratch.ArgumentType.STRING,
+                defaultValue: "arg1, arg2"
+              }
+            },
           }
         ],
         menus: {
@@ -130,6 +163,14 @@
       return eval(`"${COMMAND}"`)
     }
     run() {
+    }
+    functionStart({NAME, ARGS}) {
+      return util 
+    }
+    function({NAME,ARGS, SUBSTACK}, util) {
+    window.eval(`function ${NAME}(${ARGS}) {
+        }`)
+      return util.startBranch(SUBSTACK)
     }
   }
 
