@@ -222,10 +222,6 @@ g[data-category="Ollama AI"] text[class="blocklyText"] {
     fill: #1c1c1c !important;
 
 }
-g[data-category="Ollama AI"] {
-background-color: green;
-    border-radius: 20px !important;
-}
 `;
 document.head.appendChild(style);
 
