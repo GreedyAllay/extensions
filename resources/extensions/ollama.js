@@ -6,8 +6,8 @@
       return {
         id: 'ollamaAI', // ID used in the URL, must be unique
         name: 'Ollama AI', // Display name
-        color1: '#acacacff', // Block color
-        color2: '#a0a0a0ff', // Outline color
+        color1: '#d1d1d1ff', // Block color
+        color2: '#b6b6b6ff', // Outline color
         color3: '#1d1d1dff', // Text highlight color
         blocks: [
           {
@@ -215,6 +215,14 @@
   }
 }
 
+  const style = document.createElement('style');
+style.textContent = `
+g[data-category="Ollama AI"] text[class="blocklyText"] {
+    stroke: ;
+    fill: #1c1c1c !important;
+}
+`;
+document.head.appendChild(style);
 
   Scratch.extensions.register(new MyExtension());
 })(Scratch);

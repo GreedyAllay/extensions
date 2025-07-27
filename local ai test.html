@@ -21,11 +21,52 @@
     button:hover {
         cursor: pointer;
     }
+    button:active {
+        transform: scale(0.95);
+    }
+    select {
+        background-color: rgb(73, 73, 73);
+        border-style: none;
+        outline: none;
+        transition: transform, .1s;
+        padding: 5px;
+        color: white;
+    }
+    select:hover {
+        cursor: pointer;
+    }
+    select:active {
+        transform: translateY(10%);
+        transition: transform, 0s;
+    }
     #content {
         display: flex;
         flex-direction: column;
         margin: auto;
         width: 50%;
+    }
+    #prompt {
+        width: 100%;
+        background-color: rgb(48, 48, 48);
+        outline: none;
+        padding: 5px;
+        border-radius: 5px;
+        height:120px;
+        overflow:scroll;
+        overflow-x:hidden;
+        scroll-behavior:smooth;
+    }
+    #prompt::-webkit-scrollbar {
+        display: none;
+    }
+    .bold {
+        color: rgba(255, 0, 149, 0.986);
+        font-weight: 600;
+        text-shadow: 0 0 10px #e60073, 0 0 20px #e60073, 0 0 20px #e60073, 0 0 40px #e60073, 0 0 50px #e60073;
+        transform: translateY(60%);
+    }
+    .big {
+        background-color: green;
     }
 </style>
 
@@ -38,15 +79,17 @@
 </select>
     <div id="content">
     <div style="display: flex;">
-<textarea name="" id="prompt">hello</textarea>
-<button onclick="sendRequest(`${prompt.value} (${information})`)">Send</button>
+    <div id="prompt" contenteditable="true" onchange="textInputFormatting(prompt.innerHTML)">helloes</div>
+<button onclick="sendRequest(`${prompt.textContent} (${information})`)">Send</button>
 </div>
 <p id="response"></p>
 </div>
 
 
 <script>
-    const information = "please keep your response short. You cannot use formatting."
+    // const information = ""
+    const information = 
+    "please keep your response short. You can use double asterisks (**) for bold formatting Example | bold: **hello**"
     const URL = "http://localhost:11434/api/generate"
     const prompt = document.getElementById("prompt")
     const responsetxt = document.getElementById("response")
@@ -86,8 +129,43 @@
 
 function gotSomething(response) {
     console.log(response.response)
-    responsetxt.textContent = response.response
+    const formatted = addFormatting(response.response)
+    responsetxt.innerHTML = formatted
     responsetxt.style.color = "white"
+}
+
+function addFormatting(text) {
+    let output = ""
+    let isbold = false
+    let isbig = false
+    for(let i = 0; i < text.length; i++) {
+    console.log(text.slice(i, i+1))
+    if(text.slice(i, i + 2) == "**") {
+        console.log("found double asterisks")
+        if(!isbold) {
+                    output = output + "<span class='bold'>"
+            isbold = true
+            i++
+        } else {
+        output = output + "</span>"
+        isbold = false
+        i++
+        }
+    } else {
+        output = output + text.slice(i, i+1)
+    }
+    }
+
+    const a = output.replace("<think>", "<span class='bold'>")
+    const b = output.replace("</think>", "</span>")
+    console.log("formateed: " + b)
+    return b
+
+}
+
+function textInputFormatting(text) {
+    const formatted = addFormatting(text)
+    prompt.innerHTML = formatted
 }
 
 // sendRequest('send 5 words')
@@ -97,3 +175,22 @@ function addToList(text) {
 }
 </script>
 </body>
+
+
+<!-- for(let j = i + 2; i < text.length - i; j++) {
+                if(text.slice(j, j+2) == "**") {
+                    break
+                    console.log("yess theres another one")
+                }
+            } -->
+
+            <!--     "please keep your response short. You can use double asterisks (**) for bold formatting, and (#) to make text big for a title. Do not combine multiple types of formatting, (e.g. Don't combine # with **) Example | bold: **hello**, title: #hello#" -->
+
+            <!-- if(text[i] == "#") {
+        if(!isbig) {
+        output = output + "<span class='big'>"
+            i++
+        } else {
+        output = output + "</span>"
+        i++
+        }} -->

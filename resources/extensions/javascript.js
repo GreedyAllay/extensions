@@ -4,12 +4,34 @@
   class MyExtension {
     getInfo() {
       return {
-        id: 'myExtension', // ID used in the URL, must be unique
-        name: 'My Extension', // Display name
-        color1: '#ff6680', // Block color
-        color2: '#ff4d6d', // Outline color
-        color3: '#cc3355', // Text highlight color
+        id: 'simpleJS', // ID used in the URL, must be unique
+        name: 'Simple JS', // Display name
+        color1: '#ff2e2e', // Block color
+        color2: '#bb0000ff', // Outline color
+        color3: '#b90000ff', // Text highlight color
         blocks: [
+          {
+            opcode: 'eval',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'eval([COMMAND])',
+            arguments: {
+                COMMAND: {
+                    type:Scratch.ArgumentType.STRING,
+                    defaultValue: ""
+                }
+            }
+          },
+          {
+            opcode: 'run',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'void [RUN]',
+            arguments: {
+                RUN: {
+                    type:Scratch.ArgumentType.STRING,
+                    defaultValue: ""
+                }
+            }
+          },
           {
             opcode: 'constVar',
             blockType: Scratch.BlockType.COMMAND,
@@ -41,32 +63,55 @@
             }
           },
           {
-            opcode: 'menuBlock',
+            opcode: 'console',
             blockType: Scratch.BlockType.REPORTER,
-            text: 'selected [CHOICE]',
+            text: 'console.[ACTION]([ARGS])',
             arguments: {
-              CHOICE: {
+              ACTION: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'choicesMenu'
+                menu: 'consoleMenu'
+              },
+              ARGS: {
+                type:Scratch.ArgumentType.STRING,
+                defaultValue: "pink cats"
+              }
+            }
+          },
+          {
+            opcode: 'alert',
+            blockType: Scratch.BlockType.REPORTER,
+            text: '[ACTION]([ARGS])',
+            arguments: {
+              ACTION: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'alertMenu'
+              },
+              ARGS: {
+                type:Scratch.ArgumentType.STRING,
+                defaultValue: "pink cats"
               }
             }
           }
         ],
         menus: {
-          choicesMenu: {
+          consoleMenu: {
             acceptReporters: true,
-            items: ['Option A', 'Option B', 'Option C']
+            items: ['log', 'warn', 'error']
           },
           varInitMenu: {
             acceptReporters: true,
             items: ['var', 'let', 'const']
+          },
+          alertMenu: {
+            acceptReporters: true,
+            items: ['alert', 'confirm', 'prompt']
           }
         }
       };
     }
 
     constVar({TYPE, NAME, VALUE}) {
-        eval(`${TYPE} ${NAME} = "${VALUE}"`)
+        window.eval(`${TYPE} ${NAME} = "${VALUE}"`)
         console.log(`${TYPE} ${NAME} = "${VALUE}"`)
 
     }
@@ -74,12 +119,17 @@
         return window[VARIABLE]
     }
 
-    repeatText({ TEXT, TIMES }) {
-      return TEXT.repeat(Number(TIMES));
+    console({ACTION, ARGS}) {
+      window.eval(`console.${ACTION}("${ARGS}")`)
     }
 
-    menuBlock({ CHOICE }) {
-      return `You chose: ${CHOICE}`;
+    alert({ACTION, ARGS}) {
+      return eval(`${ACTION}("${ARGS}")`)
+    }
+    eval({COMMAND}) {
+      return eval(`"${COMMAND}"`)
+    }
+    run() {
     }
   }
 
