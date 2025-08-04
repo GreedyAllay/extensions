@@ -109,17 +109,19 @@
         min-height: ${SIZE};
         backdrop-filter: blur(10px);
         aspect-ratio: 1/1;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
         `
         button.style.pointerEvents = 'auto';
         button.textContent = TEXT
         button.id = ID
         existingButtons.push(ID)
-        button.addEventListener("mousedown", function() {
+        button.addEventListener("touchstart", function() {
             pressedButtons.push(button.id)
         console.log(`pressed   ${button.id}`)
-
         })
-        button.addEventListener("mouseup", () => {
+        button.addEventListener("touchend", () => {
         const newArray = pressedButtons.filter(item => item !== button.id)
         pressedButtons = newArray
         console.log(`unpressed ${button.id}`)
