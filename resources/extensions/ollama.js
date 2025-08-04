@@ -152,7 +152,7 @@
     }
   }
 
-  // ollama fuckery :D
+  // ollama duckery :D
 
     let system = "please keep your response short. You cannot use formatting."
     let URL = "http://localhost:11434/api/generate"
@@ -224,6 +224,7 @@ g[data-category="Ollama AI"] text[class="blocklyText"] {
 }
 `;
 document.head.appendChild(style);
+
 
   Scratch.extensions.register(new MyExtension());
 })(Scratch);

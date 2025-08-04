@@ -35,7 +35,7 @@
           {
             opcode: 'constVar',
             blockType: Scratch.BlockType.COMMAND,
-            text: '[TYPE] [NAME] = [VALUE]',
+            text: 'initialize [TYPE] [NAME] = [VALUE]',
             arguments: {
                 TYPE: {
                     type:Scratch.ArgumentType.STRING,
@@ -48,6 +48,10 @@
                 VALUE: {
                     type: Scratch.ArgumentType.STRING,
                     defaultValue: 'bar'
+                },
+                TYPE: {
+                  type: Scratch.ArgumentType.STRING,
+                  menu: 'varTypes'
                 }
             }
           },
@@ -124,6 +128,21 @@
                 defaultValue: "arg1, arg2"
               }
             },
+          },
+          {
+            opcode: 'createArray',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'create array [NAME]([ARGS]) {',
+            arguments: {
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: "myFunction"
+              },
+              ARGS: {
+                type:Scratch.ArgumentType.STRING,
+                defaultValue: "arg1, arg2"
+              }
+            },
           }
         ],
         menus: {
@@ -138,12 +157,44 @@
           alertMenu: {
             acceptReporters: true,
             items: ['alert', 'confirm', 'prompt']
+          },
+          varTypes: {
+            acceptReporters: true,
+            items: ['string', 'boolean', 'bigint', 'array', 'json', 'undefined', 'null', 'symbol', 'object']
           }
         }
       };
     }
 
-    constVar({TYPE, NAME, VALUE}) {
+    constVar({TYPE, NAME, VALUE, TYPE}) {
+      let newval = ""
+      if(TYPE == "string") {
+        newval = "''"
+      } else if(TYPE == "boolean") {
+        newval = "false"
+
+      } else if(TYPE == "bigint") {
+        newval = "0"
+        
+      } else if(TYPE == "array") {
+        newval = "[]"
+        
+      } else if(TYPE == "json") {
+        newval = "{}"
+        
+      } else if(TYPE == "undefined") {
+        newval = ""
+        
+      } else if(TYPE == "null") {
+        newval = "''"
+        
+      } else if(TYPE == "symbol") {
+        newval = "''"
+        
+      } else if(TYPE == "object") {
+        newval = "''"
+        
+      }
         window.eval(`${TYPE} ${NAME} = "${VALUE}"`)
         console.log(`${TYPE} ${NAME} = "${VALUE}"`)
 
