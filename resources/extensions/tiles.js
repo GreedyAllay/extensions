@@ -85,6 +85,28 @@
               }
             }
           },
+          {
+            opcode: 'getClicked2',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'get current clicked card',
+            arguments: {
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'abc'
+              }
+            }
+          },
+          {
+            opcode: 'getClicked3',
+            blockType: Scratch.BlockType.HAT,
+            text: 'when any card clicked',
+            arguments: {
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'abc'
+              }
+            }
+          },
         ],
       };
     }
@@ -164,7 +186,20 @@
           return clickedButtons[NAME]
         }
       }
-    }    
+    }
+    getClicked2({NAME}) {
+      if (NAME !== '') {
+        // return the ID (key) of the currently true card
+        return Object.keys(clickedButtons).find(key => clickedButtons[key]) || '';
+      }
+    }
+
+    getClicked3({NAME}) {
+      if (NAME !== '') {
+        // check if any card is clicked
+        return Object.keys(clickedButtons).some(key => clickedButtons[key]);
+      }
+    }
   }
 
   Scratch.extensions.register(new MyExtension());
