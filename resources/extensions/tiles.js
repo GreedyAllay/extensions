@@ -133,7 +133,9 @@
     }
 
     removeWindow() {
-      document.getElementById('window').remove()
+      const window = document.getElementById('window')
+      if(window)
+      window.remove()
     }
 
     getClicked({NAME}) {
