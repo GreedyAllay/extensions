@@ -179,9 +179,10 @@
 
     removeWindow() {
       const window = document.getElementById('window')
-      if(window)
+      if(window) {
       clickedButtons = {}
       window.remove()
+      }
 
     }
 
