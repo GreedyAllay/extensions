@@ -180,7 +180,9 @@
     removeWindow() {
       const window = document.getElementById('window')
       if(window)
+      clickedButtons = {}
       window.remove()
+
     }
 
     getClicked({NAME}) {
