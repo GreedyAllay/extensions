@@ -74,6 +74,17 @@
               }
             }
           },
+          {
+            opcode: 'getClicked1',
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: 'when card [NAME] clicked',
+            arguments: {
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'abc'
+              }
+            }
+          },
         ],
       };
     }
@@ -146,6 +157,14 @@
         }
       }
     }
+    getClicked1({NAME}) {
+      if(NAME !== '')
+      {
+        if(clickedButtons[NAME]) {
+          return clickedButtons[NAME]
+        }
+      }
+    }    
   }
 
   Scratch.extensions.register(new MyExtension());
