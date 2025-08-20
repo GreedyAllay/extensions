@@ -59,10 +59,22 @@
             }
           },
           {
+            opcode: 'addTitle',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'add new title name: [NAME]',
+            arguments: {
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'NEW TITLE'
+              }
+            }
+          },
+          {
             opcode: 'removeWindow',
             blockType: Scratch.BlockType.COMMAND,
             text: 'remove window',
           },
+          
           {
             opcode: 'getClicked',
             blockType: Scratch.BlockType.HAT,
@@ -199,6 +211,23 @@
         // check if any card is clicked
         return Object.keys(clickedButtons).some(key => clickedButtons[key]);
       }
+    }
+    addTitle({NAME}) {
+      const title = document.createElement('span')
+      const hr = document.createElement('hr')
+      const br = document.createElement('br')
+      const container = document.createElement('div')
+      title.style.fontSize = '30px'
+      title.style.fontWeight = '50px'
+      title.textContent = NAME
+      const window = document.getElementById('window')
+      container.style.display = 'block'
+      container.style.width = '100%'
+      container.appendChild(br)
+      container.appendChild(title)
+      container.appendChild(hr)
+      window.appendChild(container)
+      
     }
   }
 
