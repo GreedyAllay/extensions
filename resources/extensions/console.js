@@ -37,6 +37,17 @@
               }
             }
           },
+          {
+            opcode: 'ask',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'get user input placeholder: [TEXT]',
+            arguments: {
+              TEXT: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: ''
+              }
+            }
+          },
           // {
           //   opcode: 'setTextSize',
           //   blockType: Scratch.BlockType.COMMAND,
@@ -82,6 +93,52 @@
         const console = document.getElementById('console')
         console.style.fontSize = SIZE
     }
+
+    ask({TEXT}) {
+      return new Promise(resolve => {
+      const askbox = document.createElement('div')
+      const input = document.createElement('div')
+      input.contentEditable = true
+      input.style = `
+      min-height: 25px;
+      max-height: 75px;
+      overflow-y: scroll;
+      outline: none;
+      pointer-events: auto;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      padding: 5px;
+      `
+      input.textContent = TEXT
+      askbox.appendChild(input)
+      askbox.className = 'askbox'
+      input.focus()
+      askbox.style = `
+      background-color: #00000050;
+      border-color: #00000050;
+      border-style: solid;
+      border-width: 2px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      bottom: 0;
+      width: calc(100% - 25px);
+      position: absolute;
+      `
+      askbox.addEventListener('keypress', function (e) {
+        if(e.key === 'Enter') {
+          const lala = input.textContent
+          askbox.remove()
+          resolve(lala);
+        }
+      })
+      Scratch.renderer.addOverlay(askbox, "scale")
+
+        });
+    }
   }
 
   
@@ -100,4 +157,13 @@
   panel.style.pointerEvents = 'auto';
   panel.id = 'console'
   Scratch.renderer.addOverlay(panel, "scale")
+
+
+  const style = document.createElement('style')
+  style.textContent = `
+  ::-webkit-scrollbar {
+  display: none
+  }
+  `
+document.body.appendChild(style)
 })(Scratch);

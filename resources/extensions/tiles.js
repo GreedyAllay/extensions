@@ -70,11 +70,29 @@
             }
           },
           {
+            opcode: 'setStyle',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'set [ELEMENT] [CSS] to [VALUE]',
+            arguments: {
+              ELEMENT: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'elements'
+              },
+              VALUE: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'red'
+              },
+              CSS: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'css'
+              }
+            }
+          },
+          {
             opcode: 'removeWindow',
             blockType: Scratch.BlockType.COMMAND,
             text: 'remove window',
-          },
-          
+          }, 
           {
             opcode: 'getClicked',
             blockType: Scratch.BlockType.HAT,
@@ -86,6 +104,7 @@
               }
             }
           },
+
           {
             opcode: 'getClicked1',
             blockType: Scratch.BlockType.BOOLEAN,
@@ -120,6 +139,16 @@
             }
           },
         ],
+        menus: {
+          elements: {
+            acceptReporters: true,
+            items: ['card', 'title', 'description', 'background']
+          },
+          css: {
+            acceptReporters: true,
+            items: ['color', 'font']            
+          }
+        }
       };
     }
 
@@ -173,6 +202,12 @@
       card.addEventListener('mouseup', () => {
         clickedButtons[ID] = false
       })
+      card.addEventListener('touchdown', () => {
+        clickedButtons[ID] = true
+      })
+      card.addEventListener('touchup', () => {
+        clickedButtons[ID] = false
+      })
 
       document.getElementById('window').appendChild(card)
     }
@@ -184,6 +219,24 @@
       window.remove()
       }
 
+    }
+
+    setStyle({ELEMENT, VALUE, CSS}) {
+      const card = document.getElementsByClassName('tile')
+      const window = document.getElementsByClassName('window')
+      const text = document.getElementsByClassName('title')
+      const desc = document.getElementsByClassName('desc')
+      if(ELEMENT == 'card') {
+      }
+      if(CSS == 'color') {
+        setStuff('color')
+      }
+
+      function setStuff() {
+        if(ELEMENT == 'card') {
+          
+        }
+      }
     }
 
     getClicked({NAME}) {
@@ -274,6 +327,7 @@
   .window {
   display: flex;
   flex-direction: column
+  backdrop-filter: blur(5px);
   }
   ::-webkit-scrollbar {
   display: none
