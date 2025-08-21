@@ -113,7 +113,6 @@
       input.textContent = TEXT
       askbox.appendChild(input)
       askbox.className = 'askbox'
-      input.focus()
       askbox.style = `
       background-color: #00000050;
       border-color: #00000050;
@@ -136,7 +135,7 @@
         }
       })
       Scratch.renderer.addOverlay(askbox, "scale")
-
+      input.focus()
         });
     }
   }
