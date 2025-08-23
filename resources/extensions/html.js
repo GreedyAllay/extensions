@@ -165,8 +165,13 @@
       console.log(IDs)
     }
 
-    append({ID}) {
-      Scratch.renderer.addOverlay(elements[IDs.indexOf(ID)], "scale")
+    append({ID, TARGET}) {
+      if(TARGET === 'stage') {
+        Scratch.renderer.addOverlay(elements[IDs.indexOf(ID)], "scale")
+      } else {
+        IDs.indexOf(ID).appendChild(IDs.indexOf(TARGET))
+      }
+      
     }
 
     set({ID, PROP, VALUE}) {
