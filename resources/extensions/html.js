@@ -136,7 +136,7 @@
           },
           {
             opcode: 'reset',
-            blockType: Scratch.BlockType.HAT,
+            blockType: Scratch.BlockType.COMMAND,
             text: 'reset'
           },
           
