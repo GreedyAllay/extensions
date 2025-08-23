@@ -128,6 +128,11 @@
             }
           },
           {
+            opcode: 'addOptions',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'set tha options baby!',
+          },
+          {
             opcode: 'getClicked3',
             blockType: Scratch.BlockType.HAT,
             text: 'when any card clicked',
@@ -285,6 +290,15 @@
       window.appendChild(container)
       
     }
+    addOptions({OPTIONS}) {
+      const tiles = document.getElementsByClassName("tile")
+      for(let i = 0; i < tiles[i].length; i++) {
+        tiles[j].textContent = 'nope'
+        console.log(tiles[j].innerHTML)
+
+      }
+
+    }
   }
 
   Scratch.extensions.register(new MyExtension());
@@ -337,3 +351,8 @@
 document.body.appendChild(style)
   
 })(Scratch);
+
+
+        for(let j = 0; j < OPTIONS.length; j++) {
+          tiles[j].textContent = 'nope'
+        }
