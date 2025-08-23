@@ -123,12 +123,27 @@
               }
             }
           },
+          {
+            opcode: 'hideall',
+            blockType: Scratch.BlockType.HAT,
+            text: 'set all visibility to [VISIBILITY]',
+            arguments: {
+              VISIBILITY: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'visibility'
+              }
+            }
+          },
           
         ],
         menus: {
           targets: {
             acceptReporters: true,
             items: "getIDs"
+          },
+          visibility: {
+            acceptReporters: true,
+            items: ['visible', 'hidden']
           }
         }
       };
@@ -151,7 +166,7 @@
     set({ID, PROP, VALUE}) {
       const index = IDs.indexOf(ID);
       if (index !== -1) {
-        eval(`elements[${index}].${PROP} = "${VALUE}"`);
+        eval(`elements[${index}]["${PROP}"] = "${VALUE}"`);
       } else {
         console.warn(`"${ID}" does not exist`);
       }
@@ -161,6 +176,7 @@
       const element = elements[IDs.indexOf(ID)]
       if(element) {
         element.remove()
+        
       }
       
     }
@@ -206,6 +222,11 @@
       } else {
         return false
       }
+    }
+
+    hideall({VISIBILITY}) {
+      
+
     }
   }
 
