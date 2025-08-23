@@ -169,7 +169,7 @@
       if(TARGET === 'stage') {
         Scratch.renderer.addOverlay(elements[IDs.indexOf(ID)], "scale")
       } else {
-        IDs.indexOf(ID).appendChild(IDs.indexOf(TARGET))
+        IDs.indexOf(TARGET).appendChild(IDs.indexOf(ID))
       }
       
     }
