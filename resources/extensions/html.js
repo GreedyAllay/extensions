@@ -103,7 +103,7 @@
           },
           {
             opcode: 'clickevent',
-            blockType: Scratch.BlockType.REPORTER,
+            blockType: Scratch.BlockType.COMMAND,
             text: 'Add click EventListener id: [ID]',
             arguments: {
               ID: {
@@ -125,14 +125,19 @@
           },
           {
             opcode: 'hideall',
-            blockType: Scratch.BlockType.HAT,
-            text: 'set all visibility to [VISIBILITY]',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'set visibility to [VISIBILITY]',
             arguments: {
               VISIBILITY: {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'visibility'
               }
             }
+          },
+          {
+            opcode: 'reset',
+            blockType: Scratch.BlockType.HAT,
+            text: 'reset'
           },
           
         ],
@@ -173,12 +178,14 @@
     }
 
     remove({ID}) {
-      const element = elements[IDs.indexOf(ID)]
-      if(element) {
-        element.remove()
-        
+      const index = IDs.indexOf(ID);
+      if (index !== -1) {
+        const element = elements[index];
+        if (element) element.remove();
+        elements.splice(index, 1);
+        IDs.splice(index, 1);
+        delete clicked[ID];
       }
-      
     }
 
     getIDs() {
@@ -225,11 +232,17 @@
     }
 
     hideall({VISIBILITY}) {
-      
-
-    }
+      for(let i = 0; i < elements.length; i++) {
+      if(VISIBILITY === 'hidden') {
+        elements[i].hidden = true
+      } else {
+        elements[i].hidden = false
+      }}}
 
     reset() {
+      for(let i = 0; i < elements.length; i++) {
+        elements[i].remove()
+      }
       clicked = {}
       elements = []
       IDs = []
