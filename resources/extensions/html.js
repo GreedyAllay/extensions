@@ -226,14 +226,17 @@
     }
 
     create({ID, TYPE}) {
-      elements.push(document.createElement(TYPE))
-      IDs.push(ID)
+      if(!IDs.includes(ID)) {
+        elements.push(document.createElement(TYPE))
+        IDs.push(ID)
 
-      const element = elements[IDs.indexOf(ID)]
-      element.id = ID
-      element.style.pointerEvents = 'auto';
-      console.log(elements)
-      console.log(IDs)
+        const element = elements[IDs.indexOf(ID)]
+        element.id = ID
+        element.style.pointerEvents = 'auto';
+        console.log(elements)
+        console.log(IDs)
+      }
+      
     }
 
     append({ID, TARGET}) {
