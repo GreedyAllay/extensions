@@ -56,6 +56,9 @@
             opcode: 'append',
             blockType: Scratch.BlockType.COMMAND,
             text: 'append [ID] to [TARGET]',
+            color1: '#b1af36ff',
+            color2: '#8b8127ff',
+            color3: '#7a7c26ff',
             arguments: {
               ID: {
                 type: Scratch.ArgumentType.STRING,
