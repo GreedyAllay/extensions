@@ -8,9 +8,6 @@
   const newstyle = document.createElement('style')
   newstyle.textContent = 
   `
-  .clickable {
-  box-shadow: 0 12px 0 #00000044; /* Shadow layer */
-  }
   .clickable:hover{
   filter: brightness(1.2);
   cursor: pointer;
