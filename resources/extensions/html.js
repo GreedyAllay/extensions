@@ -53,7 +53,7 @@
           {
             opcode: 'set',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'set properies of id: [ID] property: [PROP] value: [VALUE]',
+            text: 'set property of id: [ID] property: [PROP] value: [VALUE]',
             color1: '#3680b1ff',
             color2: '#27638bff',
             color3: '#265a7cff',
@@ -102,6 +102,24 @@
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'cat'
               }
+            }
+          },
+          {
+            opcode: 'removeProp',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'remove property of id: [ID] property: [PROP]',
+            color1: '#b13636ff',
+            color2: '#8b2727ff',
+            color3: '#7c2626ff',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
+              },
+              PROP: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'textContent'
+              },
             }
           },
           {
@@ -258,6 +276,15 @@
       const index = IDs.indexOf(ID);
       if (index !== -1) {
         eval(`elements[${index}].${PROP} = "${VALUE}"`);
+      } else {
+        console.warn(`"${ID}" does not exist`);
+      }
+    }
+
+    removeProp({ID, PROP}) {
+      const index = IDs.indexOf(ID);
+      if (index !== -1) {
+        elements[index].removeAttribute(PROP)
       } else {
         console.warn(`"${ID}" does not exist`);
       }
