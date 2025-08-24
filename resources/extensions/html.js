@@ -34,6 +34,9 @@
             opcode: 'set',
             blockType: Scratch.BlockType.COMMAND,
             text: 'set properies of id: [ID] property: [PROP] value: [VALUE]',
+            color1: '#3680b1ff',
+            color2: '#27638bff',
+            color3: '#265a7cff',
             arguments: {
               ID: {
                 type: Scratch.ArgumentType.STRING,
@@ -68,6 +71,9 @@
             opcode: 'remove',
             blockType: Scratch.BlockType.COMMAND,
             text: 'remove [ID]',
+            color1: '#b13636ff',
+            color2: '#8b2727ff',
+            color3: '#7c2626ff',
             arguments: {
               ID: {
                 type: Scratch.ArgumentType.STRING,
@@ -99,12 +105,15 @@
           },
           {
             blockType: Scratch.BlockType.LABEL,
-            text: ''
+            text: ' '
           },
           {
             opcode: 'clickevent',
             blockType: Scratch.BlockType.COMMAND,
             text: 'Add click EventListener id: [ID]',
+            color1: '#b1af36ff',
+            color2: '#8b8127ff',
+            color3: '#7a7c26ff',
             arguments: {
               ID: {
                 type: Scratch.ArgumentType.STRING,
@@ -116,10 +125,28 @@
             opcode: 'getClicked',
             blockType: Scratch.BlockType.HAT,
             text: 'when [ID] is clicked',
+            color1: '#b1af36ff',
+            color2: '#8b8127ff',
+            color3: '#7a7c26ff',
             arguments: {
               ID: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'cat'
+              }
+            }
+          },
+          {
+            opcode: 'makeDraggable',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'make [ID] [DRAG]',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
+              },
+              DRAG: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'dragmenu'
               }
             }
           },
@@ -137,7 +164,10 @@
           {
             opcode: 'reset',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'reset'
+            text: 'reset',
+            color1: '#b13636ff',
+            color2: '#8b2727ff',
+            color3: '#7c2626ff',
           },
           
         ],
@@ -149,6 +179,10 @@
           visibility: {
             acceptReporters: true,
             items: ['visible', 'hidden']
+          },
+          drag: {
+            acceptReporters: true,
+            items: ['draggable', 'not draggable']
           }
         }
       };
@@ -253,6 +287,17 @@
       clicked = {}
       elements = []
       IDs = []
+    }
+
+    makeDraggable({ID, DRAG}) {
+      const element = elements[IDs.indexOf(ID)]
+      if(DRAG === 'draggable') {
+        element.addEventListener('click', (e) => {
+          console.log('added dragging capabilities to this specific shit')
+        })
+      } else {
+          console.log('i hate you i mean love you')
+      }
     }
   }
 
