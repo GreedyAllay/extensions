@@ -5,6 +5,21 @@
   let IDs = []
   let clicked = {}
 
+  const newstyle = document.createElement('style')
+  newstyle.textContent = 
+  `
+  .clickable:hover{
+  filter: brightness(1.5);
+  cursor: pointer;
+  transition: .1s;
+  }
+  .clickable:active{
+  transform: scale(.98);
+  filter: brightness(0.80);
+  }
+  `
+  document.body.appendChild(newstyle)
+
   class MyExtension {
     getInfo() {
       return {
@@ -154,6 +169,21 @@
             }
           },
           {
+            opcode: 'addClass',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'add [THING] to [ID]',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
+              },
+              THING: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'things'
+              }
+            }
+          },
+          {
             opcode: 'hideall',
             blockType: Scratch.BlockType.COMMAND,
             text: 'set visibility to [VISIBILITY]',
@@ -175,17 +205,21 @@
           
         ],
         menus: {
-          targets: {
-            acceptReporters: true,
-            items: "getIDs"
-          },
           visibility: {
             acceptReporters: true,
             items: ['visible', 'hidden']
           },
           drag: {
-            acceptReporters: true,
+            acceptReporters: false,
             items: ['draggable', 'not draggable']
+          },
+          thing: {
+            acceptReporters: false,
+            items: ['clickable']
+          },
+          targets: {
+            acceptReporters: true,
+            items: "getIDs"
           }
         }
       };
@@ -248,6 +282,7 @@
     clickevent({ID}) {
       const element = elements[IDs.indexOf(ID)]
       if(element !== null) {
+        element.className = 'clickable'
         element.addEventListener('mousedown', () => {
           clicked[ID] = true
         })
