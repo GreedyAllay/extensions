@@ -10,9 +10,9 @@
       return {
         id: 'html', // ID used in the URL, must be unique
         name: 'HTML', // Display name
-        color1: '#ff6680', // Block color
-        color2: '#ff4d6d', // Outline color
-        color3: '#cc3355', // Text highlight color
+        color1: '#72b136ff', // Block color
+        color2: '#5f942eff', // Outline color
+        color3: '#4f7a27ff', // Text highlight color
         blocks: [
           {
             opcode: 'create',
@@ -59,7 +59,7 @@
                 defaultValue: 'cat'
               },
               TARGET: {
-                type: Scratch.ArgumentType.NUMBER,
+                type: Scratch.ArgumentType.STRING,
                 menu: 'targets'
               }
             }
@@ -166,10 +166,11 @@
     }
 
     append({ID, TARGET}) {
+      console.log(` how is this even possible ${TARGET}`)
       if(TARGET === 'stage') {
         Scratch.renderer.addOverlay(elements[IDs.indexOf(ID)], "scale")
       } else {
-        IDs.indexOf(TARGET).appendChild(IDs.indexOf(ID))
+        elements[IDs.indexOf(TARGET)].appendChild(elements[IDs.indexOf(ID)])
       }
       
     }

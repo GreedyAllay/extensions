@@ -319,6 +319,7 @@
     display: flex;
     flex-direction: column;
     transition: .075s;
+    color: white;
   }
   .tile:hover {
   cursor: pointer;
@@ -334,6 +335,7 @@
   }
   .title {
     font-size: 15px
+    color: white;
   }
   .desc {
     font-size: 10px
