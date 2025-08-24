@@ -9,7 +9,7 @@
   newstyle.textContent = 
   `
   .clickable:hover{
-  filter: brightness(1.5);
+  filter: brightness(1.2);
   cursor: pointer;
   transition: .1s;
   }
