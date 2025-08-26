@@ -42,7 +42,7 @@
             arguments: {
               TITLE: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'Unnamed Tile'
+                defaultValue: 'Tile'
               },
               DESC: {
                 type: Scratch.ArgumentType.STRING,
@@ -94,6 +94,17 @@
             text: 'remove window',
           }, 
           {
+            opcode: 'removeTile',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'remove tile id: [ID]',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultVAlue: 'abc'
+              }
+            }
+          }, 
+          {
             opcode: 'getClicked',
             blockType: Scratch.BlockType.HAT,
             text: 'when card [NAME] clicked',
@@ -128,11 +139,6 @@
             }
           },
           {
-            opcode: 'addOptions',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'set tha options baby!',
-          },
-          {
             opcode: 'getClicked3',
             blockType: Scratch.BlockType.HAT,
             text: 'when any card clicked',
@@ -151,7 +157,7 @@
           },
           css: {
             acceptReporters: true,
-            items: ['color', 'font']            
+            items: ['color', 'border']            
           }
         }
       };
@@ -197,6 +203,8 @@
       desc.className = 'desc'
       thumb.className = 'thumb'
 
+      card.id = `card${ID}`
+
       card.appendChild(thumb)
       card.appendChild(title)
       card.appendChild(desc)
@@ -228,19 +236,39 @@
 
     setStyle({ELEMENT, VALUE, CSS}) {
       const card = document.getElementsByClassName('tile')
-      const window = document.getElementsByClassName('window')
+      const window = document.getElementById('window')
       const text = document.getElementsByClassName('title')
       const desc = document.getElementsByClassName('desc')
-      if(ELEMENT == 'card') {
-      }
       if(CSS == 'color') {
-        setStuff('color')
+        if(ELEMENT == 'card') {
+          for(let i = 0; i < card.length; i++) {
+            card[i].style.backgroundColor = VALUE
+          }
+        } else if(ELEMENT == 'title') {
+          for(let i = 0; i < text.length; i++) {
+            text[i].style.color = VALUE
+          }          
+        } else if(ELEMENT == 'description') {
+          for(let i = 0; i < desc.length; i++) {
+            desc[i].style.color = VALUE
+          }          
+        } else if(ELEMENT == 'background') {
+          window.style.backgroundColor = VALUE        
+        }
+      } else if(CSS == 'border') {
+          if(ELEMENT == 'card') {
+          for(let i = 0; i < card.length; i++) {
+            card[i].style.borderColor = VALUE
+          }
+        }
       }
 
-      function setStuff() {
-        if(ELEMENT == 'card') {
-          
-        }
+    }
+
+    removeTile({ID}) {
+      const element = document.getElementById(`card${ID}`)
+      if(element) {
+        element.remove()
       }
     }
 
