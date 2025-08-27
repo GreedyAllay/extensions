@@ -157,7 +157,7 @@
           },
           css: {
             acceptReporters: true,
-            items: ['color', 'border']            
+            items: ['color', 'border', 'margin']            
           }
         }
       };
@@ -301,6 +301,7 @@
         return Object.keys(clickedButtons).some(key => clickedButtons[key]);
       }
     }
+    
     addTitle({NAME}) {
       const title = document.createElement('span')
       const hr = document.createElement('hr')
