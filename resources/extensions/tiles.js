@@ -157,7 +157,7 @@
           },
           css: {
             acceptReporters: true,
-            items: ['color', 'border', 'margin']            
+            items: ['color', 'border']            
           }
         }
       };
