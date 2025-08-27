@@ -45,15 +45,25 @@
         transform: scale(0.95);
     }
     .extension {
-        background-color: rgb(58, 58, 58);
+        background-color: rgba(58, 58, 58, 0.473);
         padding: 20px;
-        width: 300px;
+        width: 200px;
         height: fit-content;
         border-color: rgb(54, 54, 54);
         border-style: solid;
         border-width: 1px;
         margin: 5px;
         border-radius: 5px;
+        transition: .1s;
+    }
+    .extension:hover:not(.disabled) { 
+        filter: brightness(1.1);
+        cursor: pointer;
+        backdrop-filter: blur(100px);
+    }
+    .extension:active:not(.disabled) {
+        filter: brightness(.9);
+        transform: scale(.98);
     }
     #wrapper {
         width: 80%;
@@ -76,10 +86,11 @@
     }
     .name {
         font-family: Archivo Black;
-        font-size: 20px;
+        font-size: 15px;
     }
     .description {
         color: rgb(207, 207, 207);
+        font-size: 12px;
     }
     #notification {
         background-color: green;
@@ -93,6 +104,27 @@
         width: 100%;
         display: flex;
     }
+    #bgfx {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: blur(100px);
+        overflow: hidden;
+        z-index: -1; /* <--- key: send to background */
+    }
+.bgcircle {
+    width: 500px;
+    height: 500px;
+    border-radius: 100px;
+    background: radial-gradient(circle, rgba(72, 149, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+    z-index: 0; 
+    opacity: 20%;
+}
+.disabled {
+    filter: opacity(.5);
+}
 
 </style>
 <body>
@@ -153,11 +185,11 @@
 
     
 
-    <div class="extension">
+    <div class="extension disabled">
         <img src="resources/controls.png" alt="" width="100%">
-        <p class="name">On-screen Controls [BROKEN]</p>
+        <p class="name">On-screen Controls</p>
         <p class="description">Control your projects with multitouch without a hassle!</p>
-        <p class="description">Quite ironically does not work with touchscreens</p>
+        <p class="description">Quite ironically does not work with touchscreens. This extension is broken.</p>
         <div class="buttons">
             <button onclick="copyExtension('controls.js'); ">Copy</button>
             <!-- <button onclick="viewExtension('controls.js')">View</button> -->
@@ -165,6 +197,9 @@
     </div>
 
     </div>
+
+    <div id="bgfx"></div>
+
 
     <script>
         const notification = document.getElementById('notification')
@@ -185,6 +220,25 @@
                 notification.hidden = true;
             }, 1000)
         }
+
+        function createBackgroundDooDoo() {
+        for(let i = 0; i < 100; i++) {
+        const circle = document.createElement('div')
+        circle.style.backgroundColor = "green"
+        circle.style.position = "fixed"
+        circle.className = 'bgcircle'
+        circle.style.left = random(-200, window.innerWidth) + 'px'
+        circle.style.top = random(-200, window.innerHeight) + 'px'
+        circle.style.background = `radial-gradient(circle, rgba(${random(0,255)}, ${random(0,0)}, ${random(0,255)}) -50%, rgba(255, 255, 255, 0) 70%)`
+        document.getElementById('bgfx').appendChild(circle)
+        }
+        }
+        createBackgroundDooDoo()
+
+
+        function random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
 
 
 

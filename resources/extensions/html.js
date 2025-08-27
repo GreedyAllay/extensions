@@ -115,35 +115,35 @@
               },
               PROP: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'textContent'
+                defaultValue: 'hidden'
               },
             }
           },
-          {
-            opcode: 'run',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'JavaScript [CODE]',
-            arguments: {
-              CODE: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: 'alert("Are you good bro?")'
-              }
-            }
-          },
-          {
-            opcode: 'runReturn',
-            blockType: Scratch.BlockType.REPORTER,
-            text: 'JavaScript [CODE]',
-            arguments: {
-              CODE: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: 'alert("Are you good bro?")'
-              }
-            }
-          },
+          // {
+          //   opcode: 'run',
+          //   blockType: Scratch.BlockType.COMMAND,
+          //   text: 'JavaScript [CODE]',
+          //   arguments: {
+          //     CODE: {
+          //       type: Scratch.ArgumentType.STRING,
+          //       defaultValue: 'alert("Are you good bro?")'
+          //     }
+          //   }
+          // },
+          // {
+          //   opcode: 'runReturn',
+          //   blockType: Scratch.BlockType.REPORTER,
+          //   text: 'JavaScript [CODE]',
+          //   arguments: {
+          //     CODE: {
+          //       type: Scratch.ArgumentType.STRING,
+          //       defaultValue: 'alert("Are you good bro?")'
+          //     }
+          //   }
+          // },
           {
             blockType: Scratch.BlockType.LABEL,
-            text: ' '
+            text: ''
           },
           {
             opcode: 'clickevent',
@@ -206,11 +206,15 @@
           {
             opcode: 'hideall',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'set visibility to [VISIBILITY]',
+            text: 'set visibility of [ID] to [VISIBILITY]',
             arguments: {
               VISIBILITY: {
                 type: Scratch.ArgumentType.STRING,
                 menu: 'visibility'
+              },
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
               }
             }
           },
@@ -342,13 +346,22 @@
       }
     }
 
-    hideall({VISIBILITY}) {
+    hideall({VISIBILITY, ID}) {
+      if(ID == '') {
+        const element = elements[IDs.indexOf(ID)]
+        if(VISIBILITY === 'hidden') {
+        element.hidden = true
+        } else {
+        element.hidden = false
+          
+        }
+      } else {
       for(let i = 0; i < elements.length; i++) {
       if(VISIBILITY === 'hidden') {
         elements[i].hidden = true
       } else {
         elements[i].hidden = false
-      }}}
+      }}}}
 
     reset() {
       for(let i = 0; i < elements.length; i++) {
