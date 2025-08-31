@@ -54,7 +54,7 @@
           {
             opcode: 'addTile',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'add tile name: [TITLE] description: [DESC] thumbnail: [THUMB] id: [ID] menuitems: [MENU]',
+            text: 'add tile name: [TITLE] description: [DESC] thumbnail: [THUMB] id: [ID]',
             arguments: {
               TITLE: {
                 type: Scratch.ArgumentType.STRING,
@@ -220,7 +220,7 @@
       const desc = document.createElement('span')
       const thumb = document.createElement('img')
       const options = document.createElement('div')
-      const menu = JSON.parse(MENU)
+      // const menu = JSON.parse(MENU)
 
       if(THUMB == '') {
         thumb.src = 'https://greedyallay.github.io/extensions/resources/IMG_5205.jpg'
@@ -230,20 +230,20 @@
       
       desc.textContent = DESC
       title.textContent = TITLE
-      options.textContent = '...'
+      // options.textContent = '...'
 
       title.className = 'title'
       card.className = 'tile'
       desc.className = 'desc'
       thumb.className = 'thumb'
-      options.className = 'options'
+      // options.className = 'options'
 
       card.id = `card${ID}`
 
       card.appendChild(thumb)
       card.appendChild(title)
       card.appendChild(desc)
-      card.appendChild(options)
+      // card.appendChild(options)
 
       card.addEventListener('mousedown', () => {
         clickedButtons[ID] = true
