@@ -70,6 +70,24 @@
             }
           },
           {
+            opcode: 'getData',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'get data of property [PROP] from id [ID]',
+            color1: '#3680b1ff',
+            color2: '#27638bff',
+            color3: '#265a7cff',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
+              },
+              PROP: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'value'
+              }
+            }
+          },
+          {
             opcode: 'append',
             blockType: Scratch.BlockType.COMMAND,
             text: 'append [ID] to [TARGET]',
@@ -203,6 +221,7 @@
               }
             }
           },
+          
           {
             opcode: 'hideall',
             blockType: Scratch.BlockType.COMMAND,
@@ -381,6 +400,11 @@
       } else {
           console.log('i hate you i mean love you')
       }
+    }
+
+    getData({ID, PROP}) {
+      const element = elements[IDs.indexOf(ID)]
+      return element[PROP]
     }
   }
 

@@ -3,6 +3,22 @@
 
   let clickedButtons = {}
 
+  let mouse = {}
+
+  addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX
+    mouse.y = e.clientY
+  })
+
+  let max = {}
+
+  // const bounds = Scratch.vm.renderer.getBounds();
+  // max.w = bounds.width / 480;
+  // max.h = bounds.height / 360;
+
+  // max.ox = bounds.left;
+  // max.oy = bounds.top;
+
   class MyExtension {
     getInfo() {
       return {
@@ -38,7 +54,7 @@
           {
             opcode: 'addTile',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'add tile name: [TITLE] description: [DESC] thumbnail: [THUMB] id: [ID]',
+            text: 'add tile name: [TITLE] description: [DESC] thumbnail: [THUMB] id: [ID] menuitems: [MENU]',
             arguments: {
               TITLE: {
                 type: Scratch.ArgumentType.STRING,
@@ -54,7 +70,11 @@
               },
               ID: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'abc'
+                defaultValue: 'cat'
+              },
+              MENU: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: '["cat", "dog"]'
               },
             }
           },
@@ -66,6 +86,17 @@
               NAME: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'NEW TITLE'
+              }
+            }
+          },
+          {
+            opcode: 'addButton',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'add new button id: [ID]',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
               }
             }
           },
@@ -100,7 +131,7 @@
             arguments: {
               ID: {
                 type: Scratch.ArgumentType.STRING,
-                defaultVAlue: 'abc'
+                defaultVAlue: 'cat'
               }
             }
           }, 
@@ -111,7 +142,7 @@
             arguments: {
               NAME: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'abc'
+                defaultValue: 'cat'
               }
             }
           },
@@ -123,7 +154,7 @@
             arguments: {
               NAME: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'abc'
+                defaultValue: 'cat'
               }
             }
           },
@@ -134,7 +165,7 @@
             arguments: {
               NAME: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'abc'
+                defaultValue: 'cat'
               }
             }
           },
@@ -145,7 +176,7 @@
             arguments: {
               NAME: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'abc'
+                defaultValue: 'cat'
               }
             }
           },
@@ -183,11 +214,13 @@
       }
     }
 
-    addTile({TITLE, DESC, THUMB, ID}) {
+    addTile({TITLE, DESC, THUMB, ID, MENU}) {
       const card = document.createElement('div')
       const title = document.createElement('span')
       const desc = document.createElement('span')
       const thumb = document.createElement('img')
+      const options = document.createElement('div')
+      const menu = JSON.parse(MENU)
 
       if(THUMB == '') {
         thumb.src = 'https://greedyallay.github.io/extensions/resources/IMG_5205.jpg'
@@ -197,17 +230,20 @@
       
       desc.textContent = DESC
       title.textContent = TITLE
+      options.textContent = '...'
 
       title.className = 'title'
       card.className = 'tile'
       desc.className = 'desc'
       thumb.className = 'thumb'
+      options.className = 'options'
 
       card.id = `card${ID}`
 
       card.appendChild(thumb)
       card.appendChild(title)
       card.appendChild(desc)
+      card.appendChild(options)
 
       card.addEventListener('mousedown', () => {
         clickedButtons[ID] = true
@@ -222,6 +258,26 @@
         clickedButtons[ID] = false
       })
 
+      options.addEventListener('click' , () => {
+        const list = document.createElement('div')
+        list.className = 'list'
+
+
+        for(let i = 0; i < menu.length; i++) {
+          const item = document.createElement('div')
+          item.textContent = menu[i]
+          item.className = 'item'
+          
+          list.appendChild(item)
+        }
+        list.style.left = mouse.x-400+'px'
+        list.style.top = mouse.y-200+'px'
+
+        // list.style.left = ((mouse.x - max.ox) / max.w) + 'px';
+        // list.style.top  = ((mouse.y - max.oy) / max.h) + 'px';
+        console.log(mouse.x+mouse.y)
+      Scratch.renderer.addOverlay(list, "scale")
+      })
       document.getElementById('window').appendChild(card)
     }
 
@@ -377,6 +433,18 @@
   ::-webkit-scrollbar {
   display: none
   }
+  .options {
+  background-color: green;
+  }
+  .list {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  }
+  .item {
+  width: 100%;
+  background-color: blue;
+  }
   
   `
 document.body.appendChild(style)
@@ -384,6 +452,6 @@ document.body.appendChild(style)
 })(Scratch);
 
 
-        for(let j = 0; j < OPTIONS.length; j++) {
+ for(let j = 0; j < OPTIONS.length; j++) {
           tiles[j].textContent = 'nope'
-        }
+  }
