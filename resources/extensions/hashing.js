@@ -15,8 +15,8 @@
       return {
         id: 'gahash', // ID used in the URL, must be unique
         name: 'Simple Hash', // Display name
-        color1: '#352b2dff', // Block color
-        color2: '#1b1617ff', // Outline color
+        color1: '#9c3f54ff', // Block color
+        color2: '#644a4fff', // Outline color
         color3: '#271b1eff', // Text highlight color
         blocks: [
           {
