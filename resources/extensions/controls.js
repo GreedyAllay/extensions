@@ -19,7 +19,7 @@
           {
             opcode: 'createButton',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'create new button text: [TEXT] x: [X] y: [Y] scale: [SIZE] id: [ID]',
+            text: 'create new button text/image: [TEXT] x: [X] y: [Y] scale: [SIZE] id: [ID]',
             arguments: {
                 X: {
                     type: Scratch.ArgumentType.NUMBER,
@@ -94,8 +94,10 @@
       };
     }
     createButton({X, Y, SIZE, TEXT, ACTION, ID}) {
+      const scale = SIZE*10
       if(!existingButtons.includes(ID)) {
-        const button = document.createElement("button")
+        const button = document.createElement("div")
+        const icon = document.createElement('img')
         button.style = `
         background-color: green;
         padding: 20px;
@@ -105,16 +107,26 @@
         border-color: rgba(14, 14, 14, 1);
         margin-left: ${X}px;
         margin-top: ${Y}px;
-        min-width: ${SIZE};
-        min-height: ${SIZE};
+        max-width: ${scale}px;
+        max-height: ${scale}px;
         backdrop-filter: blur(10px);
         aspect-ratio: 1/1;
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
         `
+        icon.style.width = '100%'
+        icon.style.height = '100%'
         button.style.pointerEvents = 'auto';
-        button.textContent = TEXT
+        let isImage = false
+        if(TEXT.includes('http') || TEXT.includes('data:')) {
+          icon.src = TEXT
+          isImage = true
+          button.appendChild(icon)
+        } else {
+          button.textContent = TEXT
+          
+      }
         button.id = ID
         existingButtons.push(ID)
         button.addEventListener("pointerdown", function() {
