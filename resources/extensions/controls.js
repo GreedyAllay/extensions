@@ -55,6 +55,11 @@
             }
           },
           {
+            opcode: 'removeAll',
+            blockType: Scratch.BlockType.COMMAND,
+            text: "remove all buttons"
+          },
+          {
             opcode: 'checkButton',
             blockType: Scratch.BlockType.BOOLEAN,
             text: 'button [ID] pressed?',
@@ -150,6 +155,7 @@
       }
     }
     removeButton({ID}) {
+      if(document.getElementById(ID)) {
         const element = document.getElementById(ID)
         const index = existingButtons.indexOf(ID)
         if(existingButtons.includes(ID)) {
@@ -159,6 +165,7 @@
           console.log("couldn't find that button")
         }
         element.remove()
+      }
     }
     checkButton({ID}) {
         return pressedButtons.includes(ID)
@@ -169,6 +176,13 @@
     }
     getError() {
       return error
+    }
+    removeAll() {
+        for(let i = 0; i < existingButtons.length; i++) {
+          document.getElementById(existingButtons[i]).remove()
+        }
+        existingButtons = []
+        pressedButtons = []
     }
 
   }
