@@ -245,23 +245,16 @@
       card.appendChild(desc)
       // card.appendChild(options)
 
-      card.addEventListener('mousedown', () => {
+      card.addEventListener('pointerdown', () => {
         clickedButtons[ID] = true
       })
-      card.addEventListener('mouseup', () => {
-        clickedButtons[ID] = false
-      })
-      card.addEventListener('touchdown', () => {
-        clickedButtons[ID] = true
-      })
-      card.addEventListener('touchup', () => {
+      card.addEventListener('pointerup', () => {
         clickedButtons[ID] = false
       })
 
       options.addEventListener('click' , () => {
         const list = document.createElement('div')
         list.className = 'list'
-
 
         for(let i = 0; i < menu.length; i++) {
           const item = document.createElement('div')
