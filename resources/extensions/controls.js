@@ -31,7 +31,7 @@
                 },
                 SIZE: {
                     type: Scratch.ArgumentType.NUMBER,
-                    defaultValue: 1
+                    defaultValue: 10
                 },
                 TEXT: {
                     type:Scratch.ArgumentType.STRING,
