@@ -117,14 +117,20 @@
         button.textContent = TEXT
         button.id = ID
         existingButtons.push(ID)
-        button.addEventListener("touchstart", function() {
+        button.addEventListener("pointerdown", function() {
             pressedButtons.push(button.id)
         console.log(`pressed   ${button.id}`)
         })
-        button.addEventListener("touchend", () => {
-        const newArray = pressedButtons.filter(item => item !== button.id)
-        pressedButtons = newArray
-        console.log(`unpressed ${button.id}`)
+        function cancel() {
+          const newArray = pressedButtons.filter(item => item !== button.id)
+          pressedButtons = newArray
+          console.log(`unpressed ${button.id}`)
+        }
+        button.addEventListener("pointerup", () => {
+          cancel()
+        })
+        button.addEventListener("pointercancel", () => {
+          cancel()
         })
         Scratch.renderer.addOverlay(button, "scale")
       } else {
