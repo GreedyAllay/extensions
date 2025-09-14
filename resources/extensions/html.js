@@ -338,21 +338,11 @@
       const element = elements[IDs.indexOf(ID)]
       if(element !== null) {
         element.className = 'clickable'
-        element.addEventListener('mousedown', () => {
+        element.addEventListener('pointerdown', () => {
           clicked[ID] = true
         })
-        element.addEventListener('mouseup', () => {
+        element.addEventListener('pointerup', () => {
           clicked[ID] = false
-        })
-        element.addEventListener('touchdown', () => {
-          clicked[ID] = true
-        })
-        element.addEventListener('touchup', () => {
-          clicked[ID] = false
-        })
-        element.addEventListener('click', () => {
-      console.log(clicked)
-
         })
       }
     }
