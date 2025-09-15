@@ -106,10 +106,10 @@
         button.style = `
         background-color: green;
         padding: 20px;
-        background-color: rgba(14, 14, 14, 0.64);
+        background-color: rgba(14, 14, 14, 0.21);
         border-radius: 100%;
         border-style: solid;
-        border-color: rgba(14, 14, 14, 1);
+        border-color: rgba(14, 14, 14, 0.39);
         margin-left: ${X}px;
         margin-top: ${Y}px;
         max-width: ${scale}px;

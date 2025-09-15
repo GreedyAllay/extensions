@@ -200,7 +200,7 @@
       panel.style = `
       width: ${WIDTH};
       height: ${HEIGHT};
-      background-color: #00000063;
+      background-color: #00000041;
       display: flex;
       flex-wrap: wrap;
       overflow-y: scroll;
