@@ -6,7 +6,7 @@
 </head>
 <style>
     body {
-        background-color: rgb(29, 29, 29);
+        background-color: rgb(0, 0, 0);
         color: white;
         font-family: Archivo;
         user-select: none;
@@ -62,8 +62,7 @@
         backdrop-filter: blur(100px);
     }
     .extension:active:not(.disabled) {
-        filter: brightness(.9);
-        transform: scale(.98);
+        filter: brightness(.6);
     }
     #wrapper {
         width: 80%;
@@ -125,6 +124,9 @@
 .disabled {
     filter: opacity(.5);
 }
+.warning {
+    color: red;
+}
 
 </style>
 <body>
@@ -140,21 +142,18 @@
         <img src="resources/html.png" alt="" width="100%">
         <p class="name">HTML</p>
         <p class="description">Barebones HTML extension that allows easy integration and creation of HTML elements!</p>
-        <p class="description">Make sure to disable the sandbox!</p>
+        <p class="description warning">Make sure to disable the sandbox!</p>
         <div class="buttons">
             <button onclick="copyExtension('html.js'); ">Copy</button>
             <!-- <button onclick="viewExtension('console.js')">View</button> -->
         </div>
     </div>
-
-        
-    
     
     <div class="extension">
         <img src="resources/tiles.png" alt="" width="100%">
         <p class="name">Tiles</p>
         <p class="description">Easy way of rendering tiles inside of your project, e.g. for a gallery or level browser!</p>
-        <p class="description">Make sure to disable the sandbox!</p>
+        <p class="description warning">Make sure to disable the sandbox!</p>
         <div class="buttons">
             <button onclick="copyExtension('tiles.js'); ">Copy</button>
             <!-- <button onclick="viewExtension('tiles.js')">View</button> -->
@@ -162,10 +161,21 @@
     </div>
 
     <div class="extension">
+        <img src="resources/controls.png" alt="" width="100%">
+        <p class="name">On-screen Controls</p>
+        <p class="description">Control your projects with multitouch without a hassle!</p>
+        <p class="description warning">Make sure to disable the sandbox!</p>
+        <div class="buttons">
+            <button onclick="copyExtension('controls.js'); ">Copy</button>
+            <!-- <button onclick="viewExtension('controls.js')">View</button> -->
+        </div>
+    </div>
+
+    <div class="extension">
         <img src="resources/console.png" alt="" width="100%">
         <p class="name">Simple Console</p>
         <p class="description">Very simple extension to render text for consoles inside of your project. Comes with an improved ask block!</p>
-        <p class="description">Make sure to disable the sandbox!</p>
+        <p class="description warning">Make sure to disable the sandbox!</p>
         <div class="buttons">
             <button onclick="copyExtension('console.js'); ">Copy</button>
             <!-- <button onclick="viewExtension('console.js')">View</button> -->
@@ -176,7 +186,7 @@
         <img src="resources/ollama.png" alt="" width="100%">
         <p class="name">Ollama</p>
         <p class="description">Connect to your local Ollama server or an API through Scratch!</p>
-        <p class="description">Make sure to disable the sandbox!</p>
+        <p class="description warning">Make sure to disable the sandbox!</p>
         <div class="buttons">
             <button onclick="copyExtension('ollama.js'); ">Copy</button>
             <!-- <button onclick="viewExtension('ollama.js')">View</button> -->
@@ -187,25 +197,11 @@
         <img src="resources/hashing.png" alt="" width="100%">
         <p class="name">Simple Hashing</p>
         <p class="description">A single block that lets you hash passwords on your client!</p>
-        <p class="description">Make sure to disable the sandbox!</p>
+        <p class="description warning">Make sure to disable the sandbox!</p>
         <div class="buttons">
             <button onclick="copyExtension('hashing.js'); ">Copy</button>
         </div>
     </div>
-
-    
-
-    <div class="extension">
-        <img src="resources/controls.png" alt="" width="100%">
-        <p class="name">On-screen Controls</p>
-        <p class="description">Control your projects with multitouch without a hassle!</p>
-        <p class="description">Quite ironically does not work with touchscreens. This extension is broken.</p>
-        <div class="buttons">
-            <button onclick="copyExtension('controls.js'); ">Copy</button>
-            <!-- <button onclick="viewExtension('controls.js')">View</button> -->
-        </div>
-    </div>
-
     </div>
 
     <div id="bgfx"></div>

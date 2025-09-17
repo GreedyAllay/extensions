@@ -119,6 +119,9 @@
         user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: none;
         `
         icon.style.width = '100%'
         icon.style.height = '100%'
@@ -153,6 +156,8 @@
       } else {
         error = 'this button already exists'
       }
+      button.addEventListener("contextmenu", e => e.preventDefault());
+      icon.addEventListener("contextmenu", e => e.preventDefault());
     }
     removeButton({ID}) {
       if(document.getElementById(ID)) {
