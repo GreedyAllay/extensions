@@ -156,8 +156,8 @@
       } else {
         error = 'this button already exists'
       }
-      button.addEventListener("contextmenu", e => e.preventDefault());
-      icon.addEventListener("contextmenu", e => e.preventDefault());
+      // button.addEventListener("contextmenu", e => e.preventDefault());
+      // icon.addEventListener("contextmenu", e => e.preventDefault());
     }
     removeButton({ID}) {
       if(document.getElementById(ID)) {
