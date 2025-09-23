@@ -295,7 +295,7 @@
     set({ID, PROP, VALUE}) {
       const index = IDs.indexOf(ID);
       if (index !== -1) {
-        eval(`elements[${index}].${PROP} = "${VALUE}"`);
+        eval(`elements[${index}].${PROP} = ${VALUE}`);
       } else {
         console.warn(`"${ID}" does not exist`);
       }
