@@ -294,9 +294,14 @@
 
     set({ID, PROP, VALUE}) {
       const index = IDs.indexOf(ID);
+      let stuff = ""
       if (index !== -1) {
-        // only chatgpt line lmao
-        elements[index][PROP] = eval(/^(true|false|\d+(\.\d+)?|null|undefined|\[.*\]|\{.*\}|["'`].*["'`]|[a-zA-Z_$][\w$.()]*)$/.test(VALUE) ? VALUE : JSON.stringify(VALUE));
+        if(typeof VALUE === 'string') {
+          stuff = `"${VALUE}"`
+        } else if(typeof VALUE === 'number' || typeof VALUE === 'boolean') {
+          stuff = `${VALUE}`
+        }
+        eval(`elements[${index}].${PROP} = ${stuff}`);
       } else {
         console.warn(`"${ID}" does not exist`);
       }
