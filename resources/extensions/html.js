@@ -283,13 +283,13 @@
     }
 
     append({ID, TARGET}) {
-      console.log(` how is this even possible ${TARGET}`)
-      if(TARGET === 'stage') {
-        Scratch.renderer.addOverlay(elements[IDs.indexOf(ID)], "scale")
-      } else {
-        elements[IDs.indexOf(TARGET)].appendChild(elements[IDs.indexOf(ID)])
+      if(getElement(ID)) {
+        if(TARGET === 'stage') {
+        Scratch.renderer.addOverlay(getElement(ID), "scale")
+        } else {
+          getElement(TARGET).appendChild(getElement(ID))
+        }
       }
-      
     }
 
     set({ID, PROP, VALUE}) {
@@ -301,7 +301,7 @@
         } else if(typeof VALUE === 'number' || typeof VALUE === 'boolean') {
           stuff = `${VALUE}`
         }
-        eval(`elements[${index}].${PROP} = ${stuff}`);
+        eval(`elements[${index}].${PROP} = ${stuff}`)
       } else {
         console.warn(`"${ID}" does not exist`);
       }
@@ -341,7 +341,7 @@
     }
 
     clickevent({ID}) {
-      const element = elements[IDs.indexOf(ID)]
+      const element = getElement(ID)
       if(element !== null) {
         element.className = 'clickable'
         element.addEventListener('pointerdown', () => {
@@ -363,7 +363,7 @@
 
     hideall({VISIBILITY, ID}) {
       if(ID == '') {
-        const element = elements[IDs.indexOf(ID)]
+        const element = getElement(ID)
         if(VISIBILITY === 'hidden') {
         element.hidden = true
         } else {
@@ -388,7 +388,7 @@
     }
 
     makeDraggable({ID, DRAG}) {
-      const element = elements[IDs.indexOf(ID)]
+      const element = getElement(ID)
       if(DRAG === 'draggable') {
         element.addEventListener('click', (e) => {
           console.log('added dragging capabilities to this specific shit')
@@ -399,10 +399,20 @@
     }
 
     getData({ID, PROP}) {
-      const element = elements[IDs.indexOf(ID)]
+      let element
+      if(getElement(ID)) {
+        element = getElement(ID)
       return element[PROP]
+      }
+      return
     }
   }
 
   Scratch.extensions.register(new MyExtension());
+
+  function getElement(ID) {
+    const index = IDs.indexOf(ID);
+    if (index === -1) return null;
+    return elements[index];
+  }
 })(Scratch);
