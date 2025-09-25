@@ -1,6 +1,8 @@
 (function (Scratch) {
   'use strict';
 
+  
+
   class MyExtension {
     getInfo() {
       return {

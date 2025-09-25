@@ -1,6 +1,8 @@
 (function (Scratch) {
   'use strict';
 
+    if (!Scratch.extensions.unsandboxed) throw new Error("Run it unsandboxed or face the consequences (It just won't work)")
+
   let elements = []
   let IDs = []
   let clicked = {}
