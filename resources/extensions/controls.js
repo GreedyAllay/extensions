@@ -2,7 +2,6 @@
 //ID: gaOSC
 //Description: Customisable multitouch controls for any game
 
-  if (!Scratch.extensions.unsandboxed) throw new Error("Run it unsandboxed or face the consequences (It just won't work)")
 
 (function (Scratch) {
   'use strict';
