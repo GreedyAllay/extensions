@@ -6,6 +6,14 @@
 (function (Scratch) {
   'use strict';
 
+  document.addEventListener("contextmenu", e => {
+  if (e.target.closest("div[id]")) { // only block for your custom buttons
+    e.preventDefault();
+    return false;
+  }
+  }, { passive: false });
+
+
   class MyExtension {
     getInfo() {
       return {
