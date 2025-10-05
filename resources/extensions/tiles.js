@@ -205,7 +205,7 @@
           {
             opcode: 'addLine',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'add new text line to tile: [ID] text: [TEXT] style: [CSS]',
+            text: 'add new text line to id: [ID] text: [TEXT] style: [CSS]',
             arguments: {
               ID: {
                 type: Scratch.ArgumentType.STRING,
@@ -221,6 +221,36 @@
               }
             }
           },
+          {
+            opcode: 'property',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'set property [PROP] to [VALUE]',
+            arguments: {
+              PROP: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'properties'
+              },
+              VALUE: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'true'
+              }
+            }
+          },
+          {
+            opcode: 'setThumb',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'set thumb of id: [ID] to [THUMB]',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
+              },
+              THUMB: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: ''
+              }
+            }
+          },
         ],
         menus: {
           elements: {
@@ -230,6 +260,10 @@
           css: {
             acceptReporters: true,
             items: ['color', 'border']            
+          },
+          properties: {
+            acceptReporters: false,
+            items: ['show everything on hover', 'always full height']
           }
         }
       };
@@ -268,6 +302,7 @@
             } else {
         thumb.src = THUMB
       }
+      thumb.id = `${ID}-thumb`
       
       desc.textContent = DESC
       title.textContent = TITLE
@@ -414,6 +449,15 @@
       if(card) { card.appendChild(el) }
       
     }
+
+    property({PROPERTY, VALUE}) {
+      
+    }
+
+    setThumb({ID, THUMB}) {
+      const thumb = document.getElementById(`${ID}-thumb`)
+      thumb.src = THUMB
+    }
   }
 
   Scratch.extensions.register(new MyExtension());
@@ -435,16 +479,22 @@
     flex-direction: column;
     transition: .075s;
     color: white;
-    overflow-y: hidden;
+    overflow: hidden;
+    white-space: nowrap;
   }
+
   .tile:hover {
-  cursor: pointer;
-  filter: brightness(1.25);
+    cursor: pointer;
+    filter: brightness(1.25);
+    white-space: normal;
+    display: absolute;
   }
+
   .tile:active {
-  transform: scale(0.98);
-  filter: brightness(.75);
+    transform: scale(0.98);
+    filter: brightness(.75);
   }
+
   .thumb {
     width: 100%;
     aspect-ratio: 16/9;
@@ -457,24 +507,25 @@
     font-size: 10px
   }
   .window {
-  display: flex;
-  flex-direction: column
-  backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column
+    backdrop-filter: blur(5px);
   }
+
   ::-webkit-scrollbar {
-  display: none
+    display: none
   }
   .options {
-  background-color: green;
+    background-color: green;
   }
   .list {
-  position: absolute;
-  width: 200px;
-  height: 200px;
+    position: absolute;
+    width: 200px;
+    height: 200px;
   }
   .item {
-  width: 100%;
-  background-color: blue;
+    width: 100%;
+    background-color: blue;
   }
   
   `
