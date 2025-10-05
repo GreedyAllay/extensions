@@ -1,3 +1,9 @@
+// name: Tiles
+// by: Greedy Allay
+// version: 1.1
+
+
+
 (function (Scratch) {
   'use strict';
 
@@ -171,6 +177,21 @@
             }
           },
           {
+            opcode: 'setMaxHeight',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'set max card height: [HEIGHT] px',
+            arguments: {
+              WIDTH: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 'cat'
+              },
+              HEIGHT: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: '100'
+              },
+            }
+          },
+          {
             opcode: 'getClicked3',
             blockType: Scratch.BlockType.HAT,
             text: 'when any card clicked',
@@ -178,6 +199,25 @@
               NAME: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'cat'
+              }
+            }
+          },
+          {
+            opcode: 'addLine',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'add new text line to tile: [ID] text: [TEXT] style: [CSS]',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
+              },
+              TEXT: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
+              },
+              CSS: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'font-size: 10px'
               }
             }
           },
@@ -317,38 +357,21 @@
 
     removeTile({ID}) {
       const element = document.getElementById(`card${ID}`)
-      if(element) {
-        element.remove()
-      }
+      if(element) { element.remove() }
     }
 
     getClicked({NAME}) {
-      if(NAME !== '')
-      {
-        if(clickedButtons[NAME]) {
-          return clickedButtons[NAME]
-        }
-      }
+      if(NAME !== '') { if(clickedButtons[NAME]) { return clickedButtons[NAME] } }
     }
     getClicked1({NAME}) {
-      if(NAME !== '')
-      {
-        if(clickedButtons[NAME]) {
-          return clickedButtons[NAME]
-        }
-      }
+      if(NAME !== '') { if(clickedButtons[NAME]) { return clickedButtons[NAME] } }
     }
     getClicked2({NAME}) {
-      if (NAME !== '') {
-        // return the ID (key) of the currently true card
-        return Object.keys(clickedButtons).find(key => clickedButtons[key]) || '';
-      }
+      if (NAME !== '') { return Object.keys(clickedButtons).find(key => clickedButtons[key]) || ''; }
     }
 
     getClicked3({NAME}) {
-      if (NAME !== '') {
-        // check if any card is clicked
-        return Object.keys(clickedButtons).some(key => clickedButtons[key]);
+      if (NAME !== '') { return Object.keys(clickedButtons).some(key => clickedButtons[key]);
       }
     }
     
@@ -374,9 +397,22 @@
       for(let i = 0; i < tiles[i].length; i++) {
         tiles[j].textContent = 'nope'
         console.log(tiles[j].innerHTML)
-
       }
 
+    }
+
+    setMaxHeight({HEIGHT}) {
+      const tiles = document.getElementsByClassName("tile")
+      for(let i = 0; i < tiles.length; i++) { tiles[i].style = `max-height: ${HEIGHT}px` }
+    }
+
+    addLine({ID, TEXT, CSS}) {
+      const card = document.getElementById(`card${ID}`)
+      const el = document.createElement('span')
+      el.textContent = TEXT
+      el.style = CSS
+      if(card) { card.appendChild(el) }
+      
     }
   }
 
@@ -399,6 +435,7 @@
     flex-direction: column;
     transition: .075s;
     color: white;
+    overflow-y: hidden;
   }
   .tile:hover {
   cursor: pointer;
