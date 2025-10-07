@@ -406,6 +406,7 @@
       clicked = {}
       elements = []
       IDs = []
+      lastclicked = null
     }
 
     makeDraggable({ID, DRAG}) {
