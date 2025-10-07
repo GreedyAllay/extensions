@@ -5,6 +5,7 @@
   let elements = []
   let IDs = []
   let clicked = {}
+  let lastclicked = null
 
   const newstyle = document.createElement('style')
   newstyle.textContent = 
@@ -193,6 +194,20 @@
             }
           },
           {
+            opcode: 'getHeld',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'get currently clicked button',
+            color1: '#b1af36ff',
+            color2: '#8b8127ff',
+            color3: '#7a7c26ff',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
+              }
+            }
+          },
+          {
             opcode: 'makeDraggable',
             blockType: Scratch.BlockType.COMMAND,
             text: 'make [ID] [DRAG]',
@@ -347,6 +362,7 @@
         element.className = 'clickable'
         element.addEventListener('pointerdown', () => {
           clicked[ID] = true
+          lastclicked = ID
         })
         element.addEventListener('pointerup', () => {
           clicked[ID] = false
@@ -360,6 +376,10 @@
       } else {
         return false
       }
+    }
+
+    getHeld() {
+      return(lastclicked)
     }
 
     hideall({VISIBILITY, ID}) {
