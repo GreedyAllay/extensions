@@ -381,7 +381,12 @@
     }
 
     getHeld() {
-      return(lastclicked)
+      if(lastclicked)  {
+        return(lastclicked)
+      } else {
+        return ""
+      }
+      
     }
 
     hideall({VISIBILITY, ID}) {
