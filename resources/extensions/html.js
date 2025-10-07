@@ -200,12 +200,14 @@
             color1: '#b1af36ff',
             color2: '#8b8127ff',
             color3: '#7a7c26ff',
-            arguments: {
-              ID: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: 'cat'
-              }
-            }
+          },
+          {
+            opcode: 'resetClicked',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'reset last clicked',
+            color1: '#b1af36ff',
+            color2: '#8b8127ff',
+            color3: '#7a7c26ff',
           },
           {
             opcode: 'makeDraggable',
@@ -423,6 +425,10 @@
     getData({ID, PROP}) {
       const element = elements[IDs.indexOf(ID)]
       return element[PROP]
+    }
+
+    resetClicked() {
+      lastclicked = null
     }
   }
 
