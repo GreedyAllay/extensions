@@ -336,7 +336,7 @@
       const index = IDs.indexOf(ID);
       if (index !== -1) {
         const element = elements[index];
-        if (element) element.remove();
+        if (element) {element.remove()} ;
         elements.splice(index, 1);
         IDs.splice(index, 1);
         delete clicked[ID];
