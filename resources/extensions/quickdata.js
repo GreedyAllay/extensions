@@ -60,7 +60,7 @@
     }
 
     get({NUMBER, ID}) {
-        if(!data[ID][NUMBER]) {return ''}
+        if(!data[ID]) {if(!data[ID][NUMBER]) {return ''}}
         return data[ID][NUMBER]
     }
   }
