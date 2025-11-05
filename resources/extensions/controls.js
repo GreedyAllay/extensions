@@ -6,6 +6,15 @@
 (function (Scratch) {
   'use strict';
 
+  const style = document.createElement('style')
+  style.textContent = `
+  .osc-button:active {
+    filter: brightness(.8);
+    backdrop-filter: blur(10px) !important;
+  }
+  `
+  document.body.appendChild(style)
+
   document.addEventListener("contextmenu", e => {
   if (e.target.closest("div[id]")) { // only block for your custom buttons
     e.preventDefault();
@@ -110,6 +119,7 @@
       if(!existingButtons.includes(ID)) {
         const button = document.createElement("div")
         const icon = document.createElement('img')
+        button.className = 'osc-button'
         button.style = `
         background-color: green;
         padding: 20px;
@@ -121,7 +131,7 @@
         margin-top: ${Y}px;
         max-width: ${scale}px;
         max-height: ${scale}px;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(1px);
         aspect-ratio: 1/1;
         user-select: none;
         -webkit-user-select: none;
@@ -129,6 +139,7 @@
         -webkit-touch-callout: none;
         -webkit-tap-highlight-color: transparent;
         touch-action: none;
+        transition: .06s;
         `
         icon.style.width = '100%'
         icon.style.height = '100%'
