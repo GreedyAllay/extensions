@@ -2,7 +2,73 @@
 // by: Greedy Allay
 // version: 1.1
 
+const style = document.createElement('style')
+style.textContent = `
+  .tile {
+    background-color: rgb(58, 58, 58);
+    padding: 5px;
+    width: 110px;
+    height: fit-content;
+    border-color: rgb(54, 54, 54);
+    border-style: solid;
+    border-width: 1px;
+    margin: 5px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    transition: .075s;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 
+  .tile:hover {
+    cursor: pointer;
+    filter: brightness(1.25);
+    white-space: normal;
+    display: absolute;
+  }
+
+  .tile:active {
+    transform: scale(0.98);
+    filter: brightness(.75);
+  }
+
+  .thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+  .title {
+    font-size: 15px;
+    color: white;
+  }
+  .desc {
+    font-size: 10px;
+  }
+  .window {
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .options {
+    background-color: green;
+  }
+  .list {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+  }
+  .item {
+    width: 100%;
+    background-color: blue;
+  }
+  
+  `
+document.body.appendChild(style);
 
 (function (Scratch) {
   'use strict';
@@ -12,12 +78,12 @@
 
   let mouse = {}
 
-  addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX
-    mouse.y = e.clientY
+  addEventListener('pointerdown', (e) => {
+    clickedButtons = {}
   })
 
   let max = {}
+
 
   // const bounds = Scratch.vm.renderer.getBounds();
   // max.w = bounds.width / 480;
@@ -251,6 +317,17 @@
               }
             }
           },
+          {
+            opcode: 'run',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'run custom js [CODE]',
+            arguments: {
+              CODE: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'alert("ok")'
+              }
+            }
+         },
         ],
         menus: {
           elements: {
@@ -321,11 +398,8 @@
       card.appendChild(desc)
       // card.appendChild(options)
 
-      card.addEventListener('pointerdown', () => {
+      card.addEventListener('click', () => {
         clickedButtons[ID] = true
-      })
-      card.addEventListener('pointerup', () => {
-        clickedButtons[ID] = false
       })
 
       options.addEventListener('click' , () => {
@@ -449,91 +523,33 @@
       if(card) { card.appendChild(el) }
       
     }
-
+//WHY IS THIS SHIT NOT JUST WORKING AHHHH
     property({PROPERTY, VALUE}) {
-      
+      switch (PROPERTY) {
+        case 'show everything on hover':
+          if(VALUE == 'true') {
+            style.textContent += '.tile:hover { cursor: pointer; filter: brightness(1.25); white-space: normal; display: absolute;}'
+            alert(style)
+          } else {
+            style.textContent = style.textContent.replaceAll('.tile:hover', '.disabled:hover')
+            alert(style)
+          }
+      }
     }
 
     setThumb({ID, THUMB}) {
       const thumb = document.getElementById(`${ID}-thumb`)
       thumb.src = THUMB
     }
-  }
 
+    run({CODE}) {
+      eval(CODE)
+    }
+  }
   Scratch.extensions.register(new MyExtension());
-
-
-  const style = document.createElement('style')
-  style.textContent = `
-  .tile {
-    background-color: rgb(58, 58, 58);
-    padding: 5px;
-    width: 110px;
-    height: fit-content;
-    border-color: rgb(54, 54, 54);
-    border-style: solid;
-    border-width: 1px;
-    margin: 5px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    transition: .075s;
-    color: white;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .tile:hover {
-    cursor: pointer;
-    filter: brightness(1.25);
-    white-space: normal;
-    display: absolute;
-  }
-
-  .tile:active {
-    transform: scale(0.98);
-    filter: brightness(.75);
-  }
-
-  .thumb {
-    width: 100%;
-    aspect-ratio: 16/9;
-  }
-  .title {
-    font-size: 15px
-    color: white;
-  }
-  .desc {
-    font-size: 10px
-  }
-  .window {
-    display: flex;
-    flex-direction: column
-    backdrop-filter: blur(5px);
-  }
-
-  ::-webkit-scrollbar {
-    display: none
-  }
-  .options {
-    background-color: green;
-  }
-  .list {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-  }
-  .item {
-    width: 100%;
-    background-color: blue;
-  }
-  
-  `
-document.body.appendChild(style)
-  
 })(Scratch);
 
 
  for(let j = 0; j < OPTIONS.length; j++) {
           tiles[j].textContent = 'nope'
-  }
+  } 
