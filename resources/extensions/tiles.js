@@ -25,9 +25,12 @@ style.textContent = `
   .tile:hover {
     cursor: pointer;
     filter: brightness(1.25);
+  }
+
+  .tilehovertoexpand {
     white-space: normal;
     display: absolute;
-  }
+    }
 
   .tile:active {
     transform: scale(0.98);
