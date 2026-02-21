@@ -8,6 +8,7 @@ class Tweakpane {
     this.eventValues = {}; // Store event values
     this.buttonPressQueue = []; // Queue of button labels that were pressed
     this.inputs = []; // List of changeable inputs
+    this.selectedFolder = "none";
 
     this.loadTweakpane();
   }
@@ -31,6 +32,7 @@ class Tweakpane {
     font.src = `https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap`
     document.head.appendChild(script);
     document.head.appendChild(font);
+
   }
 
   getInfo() {
@@ -256,17 +258,21 @@ class Tweakpane {
         },
         {
           opcode: 'setStringValue',
-          blockType: Scratch.BlockType.REPORTER,
+          blockType: Scratch.BlockType.COMMAND,
           text: 'set value of [ID] to [VALUE]',
           arguments: {
             VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'cat' },
             ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'Text' },
           },
         },
+        {
+          opcode: 'getInputs',
+          blockType: Scratch.BlockType.REPORTER,
+          text: 'get inputs',
+        },
       ],
     };
   }
-
   createPanel(args) {
     if (!this.tweakpaneReady || !window.Tweakpane) {
       console.warn('Tweakpane is not ready yet!');
@@ -299,8 +305,12 @@ class Tweakpane {
 
   setStringValue(args) {
     const {ID, VALUE} = args;
-    
+    this.input[ID].value = VALUE
+  }
 
+  setFolder(args) {
+    const {ID, NAME} = args;
+    this.input[ID].value = VALUE
   }
 
   addSlider(args) {
@@ -441,6 +451,8 @@ class Tweakpane {
     input.on('change', () => {
       this.eventValues[LABEL] = String(tmp.value || '');
     });
+
+    this.inputs.push(input)
   }
 
   addButton(args) {
@@ -540,6 +552,14 @@ class Tweakpane {
   getPointY(args) {
     const v = this.eventValues[args.LABEL];
     return v && typeof v.y === 'number' ? v.y : 0;
+  }
+
+  getInputs() {
+    let output = []
+    this.inputs.forEach(element => {
+      output.push(element)
+    });
+    return JSON.stringify(output)
   }
 }
 
