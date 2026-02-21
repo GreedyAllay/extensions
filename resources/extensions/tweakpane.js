@@ -7,6 +7,7 @@ class Tweakpane {
     this.tweakpaneReady = false;
     this.eventValues = {}; // Store event values
     this.buttonPressQueue = []; // Queue of button labels that were pressed
+    this.inputs = []; // List of changeable inputs
 
     this.loadTweakpane();
   }
@@ -26,7 +27,10 @@ class Tweakpane {
     script.onerror = () => {
       console.error('Failed to load Tweakpane');
     };
+    const font = document.createElement('style')
+    font.src = `https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap`
     document.head.appendChild(script);
+    document.head.appendChild(font);
   }
 
   getInfo() {
@@ -245,6 +249,20 @@ class Tweakpane {
             LABEL: { type: Scratch.ArgumentType.STRING, defaultValue: 'Click Me' },
           },
         },
+        {
+          opcode: 'text10',
+          blockType: Scratch.BlockType.LABEL,
+          text: 'Debug',
+        },
+        {
+          opcode: 'setStringValue',
+          blockType: Scratch.BlockType.REPORTER,
+          text: 'set value of [ID] to [VALUE]',
+          arguments: {
+            VALUE: { type: Scratch.ArgumentType.STRING, defaultValue: 'cat' },
+            ID: { type: Scratch.ArgumentType.STRING, defaultValue: 'Text' },
+          },
+        },
       ],
     };
   }
@@ -262,10 +280,12 @@ class Tweakpane {
     pane.element.style.position = 'absolute';
     pane.element.style.left = `${X}px`;
     pane.element.style.top = `${Y}px`;
+    pane.element.style.fontFamily = `archivo, sans-serif`;
 
     const stage = document.querySelector('.stage_stage_1fD7k');
     if (stage) {
-      stage.appendChild(pane.element);
+      Scratch.renderer.addOverlay(pane.element, "scale");
+      pane.element.style.pointerEvents = "auto";
     } else {
       document.body.appendChild(pane.element);
     }
@@ -275,6 +295,12 @@ class Tweakpane {
     });
 
     this.panes[ID] = { pane, folder };
+  }
+
+  setStringValue(args) {
+    const {ID, VALUE} = args;
+    
+
   }
 
   addSlider(args) {
