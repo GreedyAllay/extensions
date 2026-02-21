@@ -49,8 +49,25 @@
                 defaultValue: 0
               }
             }
+          },
+          {
+            opcode: 'export',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'all data in [TYPE]',
+            arguments: {
+              TYPE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'export'
+              }
+            }
           }
-        ]
+        ],
+        menus: {
+          export: {
+            acceptReporters: true,
+            items: ['JSON (raw)', 'array']
+          }
+        }
       };
     }
 
@@ -60,8 +77,23 @@
     }
 
     get({NUMBER, ID}) {
-        if(!data[ID]) {if(!data[ID][NUMBER]) {return ''}}
+      if(!data[ID]) return ''
+      if(!(NUMBER in data[ID])) return ''
         return data[ID][NUMBER]
+    }
+
+    export({TYPE}) {
+      if(TYPE === 'JSON (raw)') {
+        return JSON.stringify(data)
+      } else if(TYPE === 'array') {
+        let output = [];
+        Object.values(data).forEach(list => {
+            Object.values(list).forEach(value => {
+                output.push(value);
+            });
+        });
+        return output;
+      }
     }
   }
 
