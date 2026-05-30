@@ -1,5 +1,5 @@
 // name: Tiles
-// by: Greedy Allay
+// by: Axolay
 // version: 1.1
 
 const style = document.createElement('style')
