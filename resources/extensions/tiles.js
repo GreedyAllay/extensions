@@ -19,6 +19,7 @@ style.textContent = `
     transition: .075s;
     color: white;
     overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -69,7 +70,7 @@ style.textContent = `
     width: 100%;
     background-color: blue;
   }
-  
+
   `
 document.body.appendChild(style);
 
@@ -177,21 +178,32 @@ document.body.appendChild(style);
             }
           },
           {
-            opcode: 'setStyle',
+            opcode: 'addLine',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'set [ELEMENT] [CSS] to [VALUE]',
+            text: 'add new text line to id: [ID] text: [TEXT] style: [CSS]',
             arguments: {
-              ELEMENT: {
+              ID: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'elements'
+                defaultValue: 'cat'
               },
-              VALUE: {
+              TEXT: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'red'
+                defaultValue: 'cat'
               },
               CSS: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'css'
+                defaultValue: 'font-size: 10px'
+              }
+            }
+          },
+          {
+            opcode: 'removeTile',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'remove tile id: [ID]',
+            arguments: {
+              ID: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'cat'
               }
             }
           },
@@ -200,17 +212,14 @@ document.body.appendChild(style);
             blockType: Scratch.BlockType.COMMAND,
             text: 'remove window',
           }, 
+          
+          // Styles
+
           {
-            opcode: 'removeTile',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'remove tile id: [ID]',
-            arguments: {
-              ID: {
-                type: Scratch.ArgumentType.STRING,
-                defaultVAlue: 'cat'
-              }
-            }
-          }, 
+            blockType: Scratch.BlockType.LABEL,
+            text: 'Interaction'
+          },
+          //
           {
             opcode: 'getClicked',
             blockType: Scratch.BlockType.HAT,
@@ -246,21 +255,6 @@ document.body.appendChild(style);
             }
           },
           {
-            opcode: 'setMaxHeight',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'set max card height: [HEIGHT] px',
-            arguments: {
-              WIDTH: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: 'cat'
-              },
-              HEIGHT: {
-                type: Scratch.ArgumentType.NUMBER,
-                defaultValue: '100'
-              },
-            }
-          },
-          {
             opcode: 'getClicked3',
             blockType: Scratch.BlockType.HAT,
             text: 'when any card clicked',
@@ -271,37 +265,29 @@ document.body.appendChild(style);
               }
             }
           },
+
+          // Styles
+
           {
-            opcode: 'addLine',
-            blockType: Scratch.BlockType.COMMAND,
-            text: 'add new text line to id: [ID] text: [TEXT] style: [CSS]',
-            arguments: {
-              ID: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: 'cat'
-              },
-              TEXT: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: 'cat'
-              },
-              CSS: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: 'font-size: 10px'
-              }
-            }
+            blockType: Scratch.BlockType.LABEL,
+            text: 'Styles'
           },
           {
-            opcode: 'property',
+            opcode: 'setStyle',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'set property [PROP] to [VALUE]',
+            text: 'set [ELEMENT] [CSS] to [VALUE]',
             arguments: {
-              PROP: {
+              ELEMENT: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'properties'
+                menu: 'elements'
               },
               VALUE: {
                 type: Scratch.ArgumentType.STRING,
-                defaultValue: 'true'
+                defaultValue: 'red'
+              },
+              CSS: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'css'
               }
             }
           },
@@ -319,6 +305,41 @@ document.body.appendChild(style);
                 defaultValue: ''
               }
             }
+          },
+
+          {
+            opcode: 'setMaxHeight',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'set max card height: [HEIGHT] px',
+            arguments: {
+              WIDTH: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 'cat'
+              },
+              HEIGHT: {
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: '100'
+              },
+            }
+          },         
+//          {
+//            opcode: 'property',
+//            blockType: Scratch.BlockType.COMMAND,
+//            text: 'set property [PROP] to [VALUE]',
+//            arguments: {
+//              PROP: {
+//                type: Scratch.ArgumentType.STRING,
+//                menu: 'properties'
+//              },
+//              VALUE: {
+//                type: Scratch.ArgumentType.STRING,
+//                defaultValue: 'true'
+//              }
+//            }
+////          },
+          {
+            blockType: Scratch.BlockType.LABEL,
+            text: 'Miscellaneous'
           },
           {
             opcode: 'run',
@@ -339,7 +360,7 @@ document.body.appendChild(style);
           },
           css: {
             acceptReporters: true,
-            items: ['color', 'border']            
+            items: ['color', 'border', 'border-radius', 'padding', 'animation-duration']            
           },
           properties: {
             acceptReporters: false,
@@ -463,6 +484,16 @@ document.body.appendChild(style);
             card[i].style.borderColor = VALUE
           }
         }
+      } else if(CSS == 'border-radius') {
+          if(ELEMENT == 'card') {
+          for(let i = 0; i < card.length; i++) {
+            card[i].style.borderRadius = VALUE
+          }
+        }
+      } else {
+          for(let i = 0; i < card.length; i++) {
+            card[i].style.backgroundColor = VALUE
+          }
       }
 
     }
